@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>腕豪复盘报告 · 多糖都要在一起</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0e1a;
+    --bg2: #0f1524;
+    --bg3: #151d30;
+    --border: #1e2d52;
+    --gold: #c89b3c;
+    --gold2: #f0d270;
+    --red: #e05252;
+    --orange: #f08a00;
+    --green: #3ddc84;
+    --blue: #4a9eff;
+    --text: #cdd6f4;
+    --text2: #7f8cad;
+    --text3: #3d4a6a;
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* ===== 顶部 Banner ===== */
+  .banner {
+    background: linear-gradient(135deg, #0a0e1a 0%, #1a1200 50%, #0a0e1a 100%);
+    border-bottom: 2px solid var(--gold);
+    padding: 36px 40px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .banner::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c89b3c' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 1;
+  }
+  .banner-inner { position: relative; max-width: 900px; margin: 0 auto; }
+  .banner-tag {
+    display: inline-block;
+    background: var(--gold);
+    color: #0a0e1a;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 3px 10px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .banner h1 {
+    font-size: 1.8rem;
+    color: var(--gold2);
+    letter-spacing: 3px;
+    margin-bottom: 6px;
+    text-shadow: 0 0 20px #c89b3c66;
+  }
+  .banner-sub { color: var(--text2); font-size: 0.85rem; }
+
+  /* ===== 战绩卡片 ===== */
+  .container { max-width: 900px; margin: 0 auto; padding: 30px 20px 0; }
+  .kda-bar {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 28px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+  .kda-item { text-align: center; }
+  .kda-label { font-size: 0.65rem; color: var(--text2); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .kda-value { font-size: 1.5rem; font-weight: 700; color: var(--gold2); }
+  .kda-value.win { color: var(--green); }
+  .kda-value.red { color: var(--red); }
+  .kda-value.normal { color: var(--text); }
+
+  /* ===== 评分卡 ===== */
+  .score-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .score-circle {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    border: 3px solid var(--orange);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    flex-shrink: 0;
+    background: #1a0e00;
+    box-shadow: 0 0 20px #f08a0033;
+  }
+  .score-num { font-size: 2rem; font-weight: 900; color: var(--orange); line-height: 1; }
+  .score-max { font-size: 0.65rem; color: var(--text2); }
+  .score-desc h2 { font-size: 1rem; color: var(--gold2); margin-bottom: 8px; }
+  .score-desc p { font-size: 0.82rem; color: var(--text2); line-height: 1.7; }
+
+  /* ===== 时间线 ===== */
+  .section-title {
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-left: 3px solid var(--gold);
+    padding-left: 10px;
+    margin-bottom: 20px;
+  }
+
+  .timeline { position: relative; padding-left: 30px; margin-bottom: 40px; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 8px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--red), var(--orange), var(--border));
+  }
+
+  .event {
+    position: relative;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-bottom: 16px;
+    transition: border-color .2s;
+  }
+  .event:hover { border-color: var(--orange); }
+  .event::before {
+    content: '';
+    position: absolute;
+    left: -26px; top: 22px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--bg2);
+  }
+  .event.sev-high::before { background: var(--red); box-shadow: 0 0 8px var(--red); }
+  .event.sev-mid::before  { background: var(--orange); box-shadow: 0 0 8px var(--orange); }
+  .event.sev-low::before  { background: var(--blue); box-shadow: 0 0 8px var(--blue); }
+
+  .event-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .event-time {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+  .event-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+  .badge-high { background: #e0525222; color: var(--red); border: 1px solid var(--red); }
+  .badge-mid  { background: #f08a0022; color: var(--orange); border: 1px solid var(--orange); }
+  .badge-low  { background: #4a9eff22; color: var(--blue); border: 1px solid var(--blue); }
+
+  .event-title { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+
+  .event-body { font-size: 0.82rem; color: var(--text2); line-height: 1.75; margin-bottom: 12px; }
+  .event-body strong { color: var(--text); }
+
+  .event-critique {
+    background: #e0525210;
+    border-left: 3px solid var(--red);
+    padding: 10px 14px;
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 10px;
+  }
+  .event-critique-label { font-size: 0.65rem; color: var(--red); letter-spacing: 1px; margin-bottom: 4px; font-weight: 700; }
+  .event-critique p { font-size: 0.8rem; color: #e07070; line-height: 1.7; }
+
+  .event-suggest {
+    background: #3ddc8410;
+    border-left: 3px solid var(--green);
+    padding: 10px 14px;
+    border-radius: 0 4px 4px 0;
+  }
+  .event-suggest-label { font-size: 0.65rem; color: var(--green); letter-spacing: 1px; margin-bottom: 4px; font-weight: 700; }
+  .event-suggest p { font-size: 0.8rem; color: #7de8a8; line-height: 1.7; }
+
+  /* ===== 综合评价 ===== */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+  .summary-panel {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .summary-panel h3 { font-size: 0.78rem; letter-spacing: 1px; margin-bottom: 14px; }
+  .summary-panel.prob h3 { color: var(--red); }
+  .summary-panel.sugg h3 { color: var(--green); }
+  .summary-panel ul { list-style: none; }
+  .summary-panel ul li {
+    font-size: 0.8rem;
+    color: var(--text2);
+    padding: 6px 0;
+    border-bottom: 1px solid #1e2d5244;
+    display: flex;
+    gap: 8px;
+    line-height: 1.6;
+  }
+  .summary-panel ul li:last-child { border-bottom: none; }
+  .summary-panel ul li::before { flex-shrink: 0; margin-top: 2px; }
+  .summary-panel.prob ul li::before { content: '✗'; color: var(--red); }
+  .summary-panel.sugg ul li::before { content: '→'; color: var(--green); }
+
+  /* ===== 雷达评分 ===== */
+  .radar-wrap {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  .radar-svg { flex-shrink: 0; }
+  .radar-legend { flex: 1; }
+  .radar-legend-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.78rem; color: var(--text2);
+    padding: 5px 0;
+    border-bottom: 1px solid #1e2d5233;
+  }
+  .radar-legend-item:last-child { border-bottom: none; }
+  .radar-bar-wrap { flex: 1; height: 5px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+  .radar-bar { height: 100%; border-radius: 3px; }
+  .radar-score { width: 28px; text-align: right; color: var(--text); font-weight: 700; font-size: 0.8rem; }
+
+  /* ===== 底部 ===== */
+  .footer {
+    max-width: 900px; margin: 30px auto 0;
+    padding: 0 20px;
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--text3);
+  }
+</style>
+</head>
+<body>
+
+<!-- Banner -->
+<div class="banner">
+  <div class="banner-inner">
+    <div class="banner-tag">LOL 排位复盘报告</div>
+    <h1>⚔ 腕豪 · 上单复盘</h1>
+    <div class="banner-sub">玩家：多糖都要在一起 &nbsp;|&nbsp; 结果：胜利 &nbsp;|&nbsp; 评分：问题较多，赢了不等于打好了</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- KDA Bar -->
+  <div class="kda-bar">
+    <div class="kda-item">
+      <div class="kda-label">K / D / A</div>
+      <div class="kda-value normal">10 / 6 / 15</div>
+    </div>
+    <div class="kda-item">
+      <div class="kda-label">KDA 比</div>
+      <div class="kda-value" style="color:var(--orange)">4.17</div>
+    </div>
+    <div class="kda-item">
+      <div class="kda-label">补刀</div>
+      <div class="kda-value normal">266</div>
+    </div>
+    <div class="kda-item">
+      <div class="kda-label">伤害</div>
+      <div class="kda-value normal">18,004</div>
+    </div>
+    <div class="kda-item">
+      <div class="kda-label">等级</div>
+      <div class="kda-value win">20</div>
+    </div>
+  </div>
+
+  <!-- 综合评分 -->
+  <div class="score-card">
+    <div class="score-circle">
+      <div class="score-num">53</div>
+      <div class="score-max">/ 100</div>
+    </div>
+    <div class="score-desc">
+      <h2>综合评分：及格线以下 · 挣扎型胜利</h2>
+      <p>
+        本局腕豪KDA数据表面看起来尚可（4.17），但6次死亡中<strong>有4次属于主动决策失误</strong>，并非被对面打穿。
+        伤害18,004在全队排名倒数第二，低于中单和ADC，说明前排没有做到<strong>足够的压制和缠斗</strong>。
+        最致命的是<strong>团战意识和前排职责执行</strong>存在严重短板——关键龙坑团两次失位，直接暴露了双C。
+        此局能赢，很大程度上依赖队友carry能力，而非个人表现稳定。
+      </p>
+    </div>
+  </div>
+
+  <!-- 评分雷达 -->
+  <div class="section-title">能力维度评估</div>
+  <div class="radar-wrap">
+    <svg class="radar-svg" width="180" height="180" viewBox="-90 -90 180 180">
+      <!-- 背景层 -->
+      <polygon points="0,-60 52,-30 52,30 0,60 -52,30 -52,-30" fill="none" stroke="#1e2d52" stroke-width="1"/>
+      <polygon points="0,-45 39,-22 39,22 0,45 -39,22 -39,-22" fill="none" stroke="#1e2d52" stroke-width="1"/>
+      <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15" fill="none" stroke="#1e2d52" stroke-width="1"/>
+      <polygon points="0,-15 13,-7 13,7 0,15 -13,7 -13,-7" fill="none" stroke="#1e2d52" stroke-width="1"/>
+      <!-- 轴线 -->
+      <line x1="0" y1="0" x2="0" y2="-60" stroke="#1e2d52" stroke-width="1"/>
+      <line x1="0" y1="0" x2="52" y2="-30" stroke="#1e2d52" stroke-width="1"/>
+      <line x1="0" y1="0" x2="52" y2="30" stroke="#1e2d52" stroke-width="1"/>
+      <line x1="0" y1="0" x2="0" y2="60" stroke="#1e2d52" stroke-width="1"/>
+      <line x1="0" y1="0" x2="-52" y2="30" stroke="#1e2d52" stroke-width="1"/>
+      <line x1="0" y1="0" x2="-52" y2="-30" stroke="#1e2d52" stroke-width="1"/>
+      <!-- 数据多边形: 线上对拼50, 补刀60, 团战30, 前排职责25, 视野意识35, 情绪管理55 -->
+      <!-- 换算到60为满: 30,36,18,15,21,33 -->
+      <polygon
+        points="0,-30 31,-18 31,18 0,36 -22,12 -28,-16"
+        fill="#f08a0033" stroke="#f08a00" stroke-width="1.5" stroke-linejoin="round"/>
+      <!-- 轴标签 -->
+      <text x="0" y="-66" text-anchor="middle" fill="#7f8cad" font-size="9">线上对拼</text>
+      <text x="57" y="-33" text-anchor="start" fill="#7f8cad" font-size="9">补刀</text>
+      <text x="57" y="36" text-anchor="start" fill="#7f8cad" font-size="9">团战把握</text>
+      <text x="0" y="72" text-anchor="middle" fill="#7f8cad" font-size="9">前排职责</text>
+      <text x="-57" y="36" text-anchor="end" fill="#7f8cad" font-size="9">视野意识</text>
+      <text x="-57" y="-33" text-anchor="end" fill="#7f8cad" font-size="9">情绪管理</text>
+    </svg>
+    <div class="radar-legend">
+      <div class="radar-legend-item">
+        <span style="width:72px;flex-shrink:0">线上对拼</span>
+        <div class="radar-bar-wrap"><div class="radar-bar" style="width:50%;background:#f08a00"></div></div>
+        <span class="radar-score">50</span>
+      </div>
+      <div class="radar-legend-item">
+        <span style="width:72px;flex-shrink:0">补刀能力</span>
+        <div class="radar-bar-wrap"><div class="radar-bar" style="width:60%;background:#3ddc84"></div></div>
+        <span class="radar-score">60</span>
+      </div>
+      <div class="radar-legend-item">
+        <span style="width:72px;flex-shrink:0">团战把握</span>
+        <div class="radar-bar-wrap"><div class="radar-bar" style="width:30%;background:#e05252"></div></div>
+        <span class="radar-score" style="color:var(--red)">30</span>
+      </div>
+      <div class="radar-legend-item">
+        <span style="width:72px;flex-shrink:0">前排职责</span>
+        <div class="radar-bar-wrap"><div class="radar-bar" style="width:25%;background:#e05252"></div></div>
+        <span class="radar-score" style="color:var(--red)">25</span>
+      </div>
+      <div class="radar-legend-item">
+        <span style="width:72px;flex-shrink:0">视野意识</span>
+        <div class="radar-bar-wrap"><div class="radar-bar" style="width:35%;background:#f08a00"></div></div>
+        <span class="radar-score">35</span>
+      </div>
+      <div class="radar-legend-item">
+        <span style="width:72px;flex-shrink:0">情绪管理</span>
+        <div class="radar-bar-wrap"><div class="radar-bar" style="width:55%;background:#f08a00"></div></div>
+        <span class="radar-score">55</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 时间线 -->
+  <div class="section-title">关键时刻逐帧批判</div>
+  <div class="timeline">
+
+    <!-- 事件1 -->
+    <div class="event sev-mid">
+      <div class="event-header">
+        <span class="event-time">01:14</span>
+        <span class="event-badge badge-mid">LANING · 中等失误</span>
+        <span class="event-title">主动与鳄鱼对拼，送出首血</span>
+      </div>
+      <div class="event-body">
+        游戏刚开始1分14秒，兵线还未完全成型，在没有充分评估双方等级、符文、技能CD的情况下，
+        主动与<strong>鳄鱼（强势近战对线英雄）</strong>进行正面交换，导致送出本局<strong>1血</strong>。
+        早期首血不仅给对面鳄鱼经济和心理优势，更让整个上路线权拱手相让。
+      </div>
+      <div class="event-critique">
+        <div class="event-critique-label">⚠ 批判性分析</div>
+        <p>腕豪前期在鳄鱼面前并无明显压制优势。鳄鱼是公认的上路强线英雄，早期W减速+被动控制可以轻松压制大多数战士。<br>
+        1分14秒选择主动交换，说明<strong>对线匹配认知不足</strong>，没有意识到当前对线处于劣势边。
+        这种"没吃到就先挨了一刀"的激进开局，是上单新手最典型的失误之一。</p>
+      </div>
+      <div class="event-suggest">
+        <div class="event-suggest-label">✦ 优化建议</div>
+        <p>遇到鳄鱼这类强势对线，前3级应以<strong>稳健压兵、骚扰为主</strong>，等级优势或技能优势打开后再谋求交换。
+        尤其一级切忌主动接触，应优先把控小兵走位，等对面进入你的技能射程再反应，而不是主动扑脸。</p>
+      </div>
+    </div>
+
+    <!-- 事件2 -->
+    <div class="event sev-mid">
+      <div class="event-header">
+        <span class="event-time">14:56</span>
+        <span class="event-badge badge-mid">LANING · 中等失误</span>
+        <span class="event-title">塔下反杀双人，但决策过于冒险</span>
+      </div>
+      <div class="event-body">
+        依赖防御塔的攻击伤害，完成了对对面两名敌人的<strong>塔下反杀</strong>。表面上看是精彩操作，
+        但实际上这是一次<strong>极高风险的赌博</strong>——血量已经很低的情况下，选择留在塔下对抗两人，
+        任何一个变量（技能被闪，延迟，第三人赶到）都可能导致送命。
+      </div>
+      <div class="event-critique">
+        <div class="event-critique-label">⚠ 批判性分析</div>
+        <p>反杀成功了，但这不代表决策是对的。<strong>结果正确 ≠ 过程正确</strong>。
+        这种塔下冒险的成功，很大程度上是对手的失误造成的。
+        如果对手有基本的塔下撤退意识，这次反杀大概率变成送命。
+        同样的决策在更高段位大概率被惩罚，养成这种"赌塔"习惯会严重阻碍上分。</p>
+      </div>
+      <div class="event-suggest">
+        <div class="event-suggest-label">✦ 优化建议</div>
+        <p>塔下反杀要有<strong>明确的底线评估</strong>：自己有几刀塔可以吃、对面各自几刀塔可以承受、技能是否能控制撤退节奏。
+        如果没有把握稳定留住一人，应果断撤退保存复活时间，而不是用"赌一把"换一次可能亏时间的双杀。</p>
+      </div>
+    </div>
+
+    <!-- 事件3 -->
+    <div class="event sev-high">
+      <div class="event-header">
+        <span class="event-time">18:11</span>
+        <span class="event-badge badge-high">ROAM · 严重失误</span>
+        <span class="event-title">下路激进送命，支援时机判断失误</span>
+      </div>
+      <div class="event-body">
+        18分钟游走至下路，但切入时机过于激进，<strong>主动进入对面控制范围</strong>后被杀。
+        此时游走本身是正确意图，但进入下路后对<strong>人数劣势、位置劣势</strong>的判断明显不足，
+        最终成为被动送命。
+      </div>
+      <div class="event-critique">
+        <div class="event-critique-label">⚠ 批判性分析</div>
+        <p>腕豪作为前排，游走支援是职责，但有一个基本前提：<strong>你到了能改变战局，而不是加入一个已经输掉的对局</strong>。
+        18分钟的这次死亡暴露了一个核心问题——<strong>只看到了"我可以去"，没有想清楚"去了能做什么"</strong>。
+        前排激进莽入，不仅没能保护队友，反而把自己的复活时间也搭进去，造成后续防守空档。</p>
+      </div>
+      <div class="event-suggest">
+        <div class="event-suggest-label">✦ 优化建议</div>
+        <p>游走之前先确认三件事：① 对面人数是否明确（小地图有没有看清）；
+        ② 己方队友当前状态是否能配合；③ 自己进入后能否先承受控制再反打。
+        如果三件事有任何一项不确定，优先<strong>在外围等待时机</strong>而不是强冲。</p>
+      </div>
+    </div>
+
+    <!-- 事件4 -->
+    <div class="event sev-low">
+      <div class="event-header">
+        <span class="event-time">22:26</span>
+        <span class="event-badge badge-low">MENTAL · 沟通失误</span>
+        <span class="event-title">夸奖队友时遗漏辅助贡献</span>
+      </div>
+      <div class="event-body">
+        野辅配合完成 <strong>2v3 双杀</strong>，是一次高质量的配合击杀。
+        赛后/聊天中只夸了<strong>"文杰好杀"</strong>（打野），完全忽略了辅助在这次双杀中的贡献，
+        没有给予辅助应有的认可。
+      </div>
+      <div class="event-critique">
+        <div class="event-critique-label">⚠ 批判性分析</div>
+        <p>这是一个看起来微小但实际上影响很深的问题。<strong>辅助位是最容易被忽视、最需要正反馈的位置</strong>。
+        一次2v3双杀，辅助的控制、视野、进场时机缺一不可，却只有打野被记住——
+        这种选择性忽视会直接影响<strong>团队氛围和辅助下一次配合的积极性</strong>。
+        在段位提升的过程中，团队沟通质量和双C保护意愿，往往比个人操作更重要。</p>
+      </div>
+      <div class="event-suggest">
+        <div class="event-suggest-label">✦ 优化建议</div>
+        <p>好的团队意识从<strong>看见每一个人的贡献</strong>开始。遇到配合击杀，
+        养成习惯同时认可参与者，哪怕只是"野辅yyds"这样简单的一句话，
+        都能有效提升队伍凝聚力，让辅助更愿意为你做保镖。</p>
+      </div>
+    </div>
+
+    <!-- 事件5 -->
+    <div class="event sev-high">
+      <div class="event-header">
+        <span class="event-time">29:00</span>
+        <span class="event-badge badge-high">VISION · 严重失误</span>
+        <span class="event-title">前排缺席龙坑视野，打野被杀</span>
+      </div>
+      <div class="event-body">
+        29分钟，队伍准备打龙，作为<strong>全队唯一的前排</strong>，没有提前进入龙坑附近
+        <strong>扫视野或做人墙</strong>，导致打野在龙坑被对方偷袭击杀。
+        这是一次<strong>完全可以避免</strong>的死亡。
+      </div>
+      <div class="event-critique">
+        <div class="event-critique-label">⚠ 批判性分析</div>
+        <p>这是本局最不可原谅的失误之一。<strong>前排的核心职责之一就是为大龙/龙坑提供视野安全保障</strong>。
+        打野刷大目标时是最脆弱的时候，所有人都盯着龙，对面随时可能偷人。
+        这个时候前排不在场，等于让打野裸脸打龙。<br>
+        更直白地说：<strong>你在哪，队友就敢打哪</strong>。你不在，队友的命就悬着。
+        打野的这次死亡，本质上是前排的失职。</p>
+      </div>
+      <div class="event-suggest">
+        <div class="event-suggest-label">✦ 优化建议</div>
+        <p>大龙/龙坑开打前，前排必须做两件事：① <strong>先进坑入口附近清除对面插眼</strong>；
+        ② 站在最容易被偷袭的方向做肉盾。这不需要特别操作，只需要<strong>比队友早5秒到位</strong>就够了。
+        把这个习惯固化，会让整个团队的大龙争夺胜率大幅提升。</p>
+      </div>
+    </div>
+
+    <!-- 事件6 -->
+    <div class="event sev-high">
+      <div class="event-header">
+        <span class="event-time">30:00</span>
+        <span class="event-badge badge-high">TEAMFIGHT · 严重失误</span>
+        <span class="event-title">龙坑关键团不向前冲，双C持续暴露</span>
+      </div>
+      <div class="event-body">
+        30分龙坑关键团战中，腕豪没有选择<strong>向前冲锋、锁住对方核心</strong>，
+        而是保持在中后位，导致己方双C（ADC+中单）长时间暴露在对方威胁范围内，
+        承受不必要的持续伤害。
+      </div>
+      <div class="event-critique">
+        <div class="event-critique-label">⚠ 批判性分析</div>
+        <p>腕豪是一个<strong>冲锋型坦克英雄</strong>，他的价值就在于用身体开启团战、锁住威胁、
+        让后排有输出空间。<strong>不冲的腕豪等于没有腕豪</strong>。<br>
+        这次关键团战选择"站着看"，是对英雄定位的彻底背叛。
+        双C在没有前排遮挡的情况下持续掉血，意味着每一秒都在消耗队伍的胜率。
+        即便这局最终赢了，这种团战思路在遇到真正会抓软目标的对手时，会被打得溃不成军。</p>
+      </div>
+      <div class="event-suggest">
+        <div class="event-suggest-label">✦ 优化建议</div>
+        <p>团战启动前，腕豪需要明确<strong>找目标再开 R，而不是等待</strong>。
+        优先锁对方ADC或中单，用身体和技能强制对方把注意力放在你身上，
+        这样双C才有时间安全输出。哪怕你在冲锋中死掉，
+        只要换掉了对方的核心输出或让双C打出足够伤害，这个交换就是值得的。</p>
+      </div>
+    </div>
+
+    <!-- 事件7 -->
+    <div class="event sev-high">
+      <div class="event-header">
+        <span class="event-time">32:00</span>
+        <span class="event-badge badge-high">TEAMFIGHT · 严重失误</span>
+        <span class="event-title">1v5 孤立深入，无谓送命</span>
+      </div>
+      <div class="event-body">
+        32分钟，在队友位置不明确的情况下<strong>单独深入对方阵型，1v5送命</strong>。
+        这是一次<strong>没有任何战略价值的主动送人头</strong>，既没能换掉对方任何人，
+        也没有为队友争取到有效时间。
+      </div>
+      <div class="event-critique">
+        <div class="event-critique-label">⚠ 批判性分析</div>
+        <p>这是本局最不可理解的一次死亡。1v5无论在任何情况下都不是腕豪应该做的事，
+        除非有明确的"我一个人吸引5人，换队友拿下高地"这样清晰的战略目的。<br>
+        但很明显这里没有——这更像是<strong>冲动操作或者认知断层</strong>：
+        误判了自己的生存能力，或者对当前战场局势的感知严重落后。
+        32分钟送的这条命，如果对面利用好复活时间差，很可能直接导致逆转。<strong>赢了是运气，不是应该的。</strong></p>
+      </div>
+      <div class="event-suggest">
+        <div class="event-suggest-label">✦ 优化建议</div>
+        <p>进入后期，前排的每一条命都是<strong>队伍的战略资产</strong>。不要在没有队友配合的情况下单独切入。
+        正确做法是：看到机会→呼叫队友跟进→确认跟进后再开→而不是自己先冲再等队友反应。
+        养成<strong>"我进，你们跟"的呼叫习惯</strong>，而不是默默一个人冲进去。</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 综合总结 -->
+  <div class="section-title">综合问题 & 优化方向</div>
+  <div class="summary-grid">
+    <div class="summary-panel prob">
+      <h3>▼ 核心问题清单</h3>
+      <ul>
+        <li>对线认知不足，对强势对线缺乏敬畏，主动送出首血</li>
+        <li>激进决策反复出现，靠运气反杀而非计算反杀</li>
+        <li>游走时机判断粗糙，只想着"去"没想清楚"为什么去"</li>
+        <li>前排职责意识薄弱，关键时刻不站前、不扫视野</li>
+        <li>团战站位消极，不主动开团，让双C持续暴露</li>
+        <li>后期冲动操作，1v5送命几乎断送胜局</li>
+        <li>团队沟通有盲区，忽视辅助贡献影响团队氛围</li>
+      </ul>
+    </div>
+    <div class="summary-panel sugg">
+      <h3>▶ 未来优化方向</h3>
+      <ul>
+        <li>对线前先研究克制关系，学习强弱对线的兵线控制策略</li>
+        <li>建立"交换前先算"的习惯，每次出手前3秒在心里过一遍胜率</li>
+        <li>游走之前先看小地图5秒，确认人数和队友状态再决策</li>
+        <li>大目标刷新前30秒提前到位，做视野+人墙双重保障</li>
+        <li>团战主动找目标开 R，哪怕换命也要换掉对方核心</li>
+        <li>后期保命为先，单独行动时降低激进阈值至少50%</li>
+        <li>赛中多喊话配合，看见辅助好操作立即给正反馈</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 结语 -->
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:24px 28px;margin-bottom:30px">
+    <div class="section-title" style="margin-bottom:14px">NONO 最终裁定</div>
+    <p style="font-size:0.85rem;color:var(--text2);line-height:1.9">
+      这局腕豪，<strong style="color:var(--gold2)">KDA好看，但问题很多</strong>。
+      6次死亡里至少4次是可以避免的主动失误，而非被对面技术压制。
+      前排职责履行度严重不足——两次关键龙坑团的缺位和消极，是本局最大的隐患。<br><br>
+      能赢，是因为队友（尤其是"玩1小时的小白"16/1/17的神仙发挥）撑起了这局。
+      <strong style="color:var(--red)">如果这局对面有一个同等发挥的carry，这局大概率是输的。</strong><br><br>
+      腕豪这个英雄的价值，在于<strong style="color:var(--gold2)">用身体换空间，用冲锋换节奏</strong>。
+      不冲、不扫视野、不站前排的腕豪，只是一个贵一点的小兵。
+      希望下一局能看到真正意义上的"前排"。
+    </p>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>本报告由 Super NONO 基于玩家提供的战绩数据与关键时刻反馈生成 · 仅供参考</p>
+</div>
+
+</body>
+</html>
