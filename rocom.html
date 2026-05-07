@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>洛克王国：世界 — 异色抓捕 & 赛季阵容攻略</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0e0a1a;
+    --bg2: #181328;
+    --bg3: #231a3c;
+    --border: #3a2a5e;
+    --accent: #b78aff;
+    --accent2: #8a5cf0;
+    --gold: #f5c858;
+    --pink: #ff7ab6;
+    --green: #5cd6a0;
+    --blue: #5aa8ff;
+    --red: #ff6b6b;
+    --text: #ece4f5;
+    --text2: #9f96b8;
+    --text3: #5a5078;
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    min-height: 100vh;
+    padding-bottom: 40px;
+  }
+
+  /* ===== Header ===== */
+  header {
+    background: linear-gradient(135deg, #1a0e38 0%, #2a1555 50%, #1a0e38 100%);
+    border-bottom: 2px solid var(--accent);
+    padding: 30px 32px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 10% 20%, #b78aff20 0, transparent 30%),
+      radial-gradient(circle at 80% 80%, #ff7ab620 0, transparent 30%);
+  }
+  header > div { position: relative; max-width: 1100px; margin: 0 auto; }
+  .tag {
+    display: inline-block;
+    background: var(--accent);
+    color: #1a0e38;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+  }
+  header h1 {
+    font-size: 1.8rem;
+    color: #fff;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    text-shadow: 0 0 20px var(--accent);
+  }
+  header p { color: #d5c8ff; font-size: 0.82rem; }
+
+  /* ===== Tabs ===== */
+  nav.tabs {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex;
+    gap: 4px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .tab {
+    background: none; border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text2);
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-family: inherit;
+    transition: all .15s;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ===== Main ===== */
+  main { max-width: 1100px; margin: 0 auto; padding: 28px 24px; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .section-title {
+    font-size: 0.9rem;
+    color: var(--accent);
+    letter-spacing: 2px;
+    border-left: 3px solid var(--accent);
+    padding-left: 10px;
+    margin: 24px 0 16px;
+    font-weight: 700;
+  }
+  .section-title:first-child { margin-top: 0; }
+
+  /* ===== 搜索栏 ===== */
+  .search-bar {
+    display: flex; gap: 12px; margin-bottom: 20px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .search-bar input, .search-bar select {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 7px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-family: inherit;
+  }
+  .search-bar input { flex: 1; min-width: 200px; }
+  .search-bar input:focus, .search-bar select:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .search-bar label { color: var(--text2); font-size: 0.78rem; }
+
+  /* ===== 卡片网格 ===== */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: all .2s;
+    cursor: pointer;
+  }
+  .card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(183,138,255,.15);
+  }
+  .card-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .card-name { font-size: 1rem; font-weight: 700; color: var(--text); }
+  .card-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+  }
+  .badge-perm { background: #5cd6a022; color: var(--green); border: 1px solid var(--green); }
+  .badge-season { background: #ff7ab622; color: var(--pink); border: 1px solid var(--pink); }
+  .badge-event { background: #f5c85822; color: var(--gold); border: 1px solid var(--gold); }
+  .badge-t0 { background: #ff6b6b22; color: var(--red); border: 1px solid var(--red); }
+  .badge-t1 { background: #f5c85822; color: var(--gold); border: 1px solid var(--gold); }
+  .badge-t2 { background: #5aa8ff22; color: var(--blue); border: 1px solid var(--blue); }
+
+  .card-row {
+    display: flex; padding: 6px 0;
+    font-size: 0.8rem;
+    border-bottom: 1px solid #2a1f45;
+  }
+  .card-row:last-of-type { border: none; }
+  .card-label {
+    color: var(--text2);
+    width: 64px;
+    flex-shrink: 0;
+  }
+  .card-value { color: var(--text); flex: 1; }
+  .card-value strong { color: var(--accent); }
+
+  .pill {
+    display: inline-block;
+    background: var(--bg3);
+    color: var(--text);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 0.72rem;
+    margin: 2px 2px 2px 0;
+    border: 1px solid var(--border);
+  }
+  .pill-a { border-color: #ff6b6b88; color: #ff9999; }
+  .pill-b { border-color: #5aa8ff88; color: #99c5ff; }
+
+  /* ===== 机制说明 ===== */
+  .mechanism {
+    background: linear-gradient(135deg, #1a0e38, #2a1555);
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    padding: 22px 26px;
+    margin-bottom: 24px;
+  }
+  .mechanism h3 { color: var(--gold); font-size: 1rem; margin-bottom: 12px; }
+  .mechanism-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-top: 14px;
+  }
+  .mech-item {
+    background: rgba(0,0,0,.25);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .mech-label { font-size: 0.68rem; color: var(--text2); letter-spacing: 1px; margin-bottom: 4px; }
+  .mech-value { font-size: 1.3rem; font-weight: 700; color: var(--gold); }
+  .mech-sub { font-size: 0.75rem; color: #d5c8ff; margin-top: 4px; }
+
+  /* ===== 警告 ===== */
+  .warn {
+    background: #ff6b6b11;
+    border-left: 4px solid var(--red);
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    border-radius: 0 6px 6px 0;
+  }
+  .warn h4 { color: var(--red); font-size: 0.88rem; margin-bottom: 6px; }
+  .warn p { color: #ffb8b8; font-size: 0.8rem; line-height: 1.7; }
+
+  .tip {
+    background: #5cd6a011;
+    border-left: 4px solid var(--green);
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    border-radius: 0 6px 6px 0;
+  }
+  .tip h4 { color: var(--green); font-size: 0.88rem; margin-bottom: 6px; }
+  .tip p { color: #b8e8d4; font-size: 0.8rem; line-height: 1.7; }
+
+  /* ===== 表格 ===== */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  th { background: var(--bg3); color: var(--accent); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.75rem; letter-spacing: 1px; }
+  td { padding: 8px 14px; border-bottom: 1px solid #2a1f45; }
+  tr:hover td { background: #1f1638; }
+
+  /* ===== 赛季日历 ===== */
+  .calendar {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: all .15s;
+  }
+  .calendar:hover { border-color: var(--accent); }
+  .cal-date {
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 0.85rem;
+    border-right: 2px solid var(--border);
+    padding-right: 14px;
+  }
+  .cal-event { color: var(--text); font-size: 0.85rem; }
+
+  /* ===== 阵容卡片 ===== */
+  .team-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .team-head {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .team-title { font-size: 1.1rem; font-weight: 700; color: var(--accent); flex: 1; }
+
+  .skill-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px dashed #2a1f45;
+  }
+  .skill-row:last-child { border: none; }
+  .skill-role {
+    color: var(--text2);
+    font-size: 0.75rem;
+    width: 60px; flex-shrink: 0;
+  }
+  .skill-name {
+    color: var(--text);
+    font-weight: 700;
+    width: 90px; flex-shrink: 0;
+    font-size: 0.88rem;
+  }
+  .skill-list { color: var(--text2); font-size: 0.78rem; flex: 1; }
+  .skill-list span {
+    display: inline-block;
+    background: var(--bg3);
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin: 2px 3px 2px 0;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  /* ===== 数据源 ===== */
+  .sources {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 30px;
+  }
+  .sources h4 { color: var(--text2); font-size: 0.75rem; margin-bottom: 10px; letter-spacing: 1px; }
+  .sources ul { list-style: none; }
+  .sources li {
+    color: var(--text3);
+    font-size: 0.72rem;
+    padding: 3px 0;
+    padding-left: 14px;
+    position: relative;
+  }
+  .sources li::before { content: '•'; color: var(--accent); position: absolute; left: 0; }
+
+  /* ===== 无结果 ===== */
+  .empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text3);
+    font-size: 0.85rem;
+  }
+
+  /* ===== 快速跳转 ===== */
+  .quick-jump {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 18px;
+  }
+  .jbtn {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all .15s;
+  }
+  .jbtn:hover, .jbtn.active {
+    background: var(--accent);
+    color: #1a0e38;
+    border-color: var(--accent);
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="tag">ROCO WORLD · S1</div>
+    <h1>🌟 洛克王国：世界 · 攻略中枢</h1>
+    <p>异色抓捕 · 赛季阵容 · 技能搭配 · 机制科普 &nbsp;|&nbsp; 数据来源：17173 / QQ新闻 / 游民星空 (2026年4月)</p>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" data-tab="mechanism">🧠 机制说明</button>
+  <button class="tab" data-tab="shiny">🌈 异色图鉴</button>
+  <button class="tab" data-tab="calendar">📅 大量出没日历</button>
+  <button class="tab" data-tab="teams">⚔️ 阵容 & 技能</button>
+  <button class="tab" data-tab="antiscam">🛡️ 识破毒攻略</button>
+</nav>
+
+<main>
+
+  <!-- ========== 机制说明 ========== -->
+  <section id="tab-mechanism" class="tab-content active">
+
+    <div class="warn">
+      <h4>⚠ 官方BUG澄清（务必阅读）</h4>
+      <p>小地图出现的"双污染/三污染"图标是<strong>显示BUG</strong>，与异色刷新率<strong>毫无关联</strong>，官方正在修复。<br>网上一些"蹲双标三标必出异色"的攻略是<strong>错误引导</strong>，请勿浪费时间蹲守。</p>
+    </div>
+
+    <div class="mechanism">
+      <h3>🌟 异色核心机制（2026-04 最新版）</h3>
+      <p style="color:#d5c8ff;font-size:0.82rem;line-height:1.8">
+        图鉴左下角带异色标识的精灵 → 连续捕捉同系/同家族 → 触发<strong style="color:var(--gold)">噩梦枷锁（污染精灵）</strong>
+        → 打破护盾 → 概率出异色（正常/污染精灵不会出）。
+      </p>
+      <div class="mechanism-grid">
+        <div class="mech-item">
+          <div class="mech-label">基础概率</div>
+          <div class="mech-value">1.8%</div>
+          <div class="mech-sub">每次破盾 → 出异色</div>
+        </div>
+        <div class="mech-item">
+          <div class="mech-label">保底次数</div>
+          <div class="mech-value">80</div>
+          <div class="mech-sub">同家族破盾 80次必出</div>
+        </div>
+        <div class="mech-item">
+          <div class="mech-label">保底规则</div>
+          <div class="mech-value" style="font-size:.95rem">不清零、不重置</div>
+          <div class="mech-sub">跨家族才重算</div>
+        </div>
+        <div class="mech-item">
+          <div class="mech-label">赛季限定</div>
+          <div class="mech-value">16只</div>
+          <div class="mech-sub">S1结束后绝版</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">🎯 4种获取方法（按效率排序）</div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-head">
+          <div class="card-name">① 大量出没活动 ⭐</div>
+          <div class="card-badge badge-t0">推荐</div>
+        </div>
+        <div class="card-row">
+          <div class="card-label">特点</div>
+          <div class="card-value">限时刷新率翻倍，成功率最高</div>
+        </div>
+        <div class="card-row">
+          <div class="card-label">建议</div>
+          <div class="card-value">优先蹲守赛季限定精灵，不错过任何一期</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-name">② 3×3庇护所刷法</div>
+          <div class="card-badge badge-t1">赛季限定必用</div>
+        </div>
+        <div class="card-row">
+          <div class="card-label">原理</div>
+          <div class="card-value">放A果实+B果实，严格3只A → 3只B循环</div>
+        </div>
+        <div class="card-row">
+          <div class="card-label">目标</div>
+          <div class="card-value">快速累计80次破盾保底</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-name">③ 单系保底刷</div>
+          <div class="card-badge badge-t1">常驻精灵最优</div>
+        </div>
+        <div class="card-row">
+          <div class="card-label">原理</div>
+          <div class="card-value">单系连抓，不用3×3更快</div>
+        </div>
+        <div class="card-row">
+          <div class="card-label">适用</div>
+          <div class="card-value">大耳帽兜、恶魔狼等7只常驻异色</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-name">④ 家园孵蛋</div>
+          <div class="card-badge badge-t2">佛系</div>
+        </div>
+        <div class="card-row">
+          <div class="card-label">特点</div>
+          <div class="card-value">不占时间，碎片化产出</div>
+        </div>
+        <div class="card-row">
+          <div class="card-label">建议</div>
+          <div class="card-value">作为补充，不依赖</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">💎 3×3速刷法操作步骤</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>步骤</th><th>操作</th><th>注意事项</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>庇护所放 A果实 + B果实</td><td>果实决定召唤系</td></tr>
+          <tr><td>2</td><td>站在庇护所中心</td><td>只在庇护所内抓，不要乱跑</td></tr>
+          <tr><td>3</td><td>连续抓 3只A系</td><td>严格数量，不能多不能少</td></tr>
+          <tr><td>4</td><td>连续抓 3只B系</td><td>不抓其他系</td></tr>
+          <tr><td>5</td><td>循环 3→3→3→3</td><td>魔力将空立刻回魔力之源</td></tr>
+          <tr><td>6</td><td>出污染怪 → 破盾 → 计数+1</td><td>累计 80次破盾必出异色</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip" style="margin-top:20px">
+      <h4>💡 高效小技巧</h4>
+      <p>
+        • <strong>不要跨系乱抓</strong>，会打乱污染池<br>
+        • <strong>计数到 75 次集中刷</strong>，第80次几乎稳出<br>
+        • 组队同点位同果实，效率最高<br>
+        • 资源紧张时用双标法：两人配合一人挂机，金币循环买球<br>
+        • 常驻异色用单系刷，<strong>不必用3×3</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== 异色图鉴 ========== -->
+  <section id="tab-shiny" class="tab-content">
+
+    <div class="search-bar">
+      <input id="shiny-search" placeholder="🔍 搜索精灵名 / 地点 / 系别..." />
+      <label>分类：
+        <select id="shiny-type">
+          <option value="all">全部</option>
+          <option value="perm">常驻</option>
+          <option value="season">赛季限定</option>
+          <option value="event">战令/活动</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="quick-jump" id="shiny-quick-jump"></div>
+
+    <div class="grid" id="shiny-grid"></div>
+
+    <div id="shiny-empty" class="empty" style="display:none">😢 没找到匹配的精灵，换个关键词试试？</div>
+  </section>
+
+  <!-- ========== 大量出没日历 ========== -->
+  <section id="tab-calendar" class="tab-content">
+    <div class="section-title">📅 S1赛季"大量出没"活动时间表</div>
+    <p style="color:var(--text2);font-size:.82rem;margin-bottom:16px">活动期间对应精灵刷新量翻倍，是最适合冲保底和抓异色的窗口期，错过不再！</p>
+    <div id="calendar-list"></div>
+  </section>
+
+  <!-- ========== 阵容 & 技能 ========== -->
+  <section id="tab-teams" class="tab-content">
+
+    <div class="search-bar">
+      <input id="team-search" placeholder="🔍 搜索精灵名 / 技能..." />
+      <label>场景：
+        <select id="team-scene">
+          <option value="all">全部</option>
+          <option value="PVE">PVE 开荒/副本</option>
+          <option value="PVP">PVP 竞技</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="section-title">🏆 T0级主力精灵（优先培养）</div>
+    <div class="grid" id="team-core"></div>
+
+    <div class="section-title">⚡ 备选精灵（资源富余时培养）</div>
+    <div class="grid" id="team-sub"></div>
+
+    <div class="section-title">🛡️ 推荐阵容搭配思路</div>
+    <div id="team-combo"></div>
+  </section>
+
+  <!-- ========== 识破毒攻略 ========== -->
+  <section id="tab-antiscam" class="tab-content">
+    <div class="section-title">🛡️ 常见毒攻略特征与辨识</div>
+
+    <div class="warn">
+      <h4>❌ 毒攻略 Top 6（务必警惕）</h4>
+      <p>
+        1. <strong>"蹲双污染/三污染标必出异色"</strong> —— 官方已澄清是显示BUG，与异色无关<br>
+        2. <strong>"用X个球必出异色"</strong> —— 概率仍是1.8%，只有80次破盾才是保底<br>
+        3. <strong>"卡BUG刷异色"</strong> —— 账号封禁风险，卡BUG已被官方修复<br>
+        4. <strong>"免费送异色码/外挂工具"</strong> —— 100%盗号诈骗<br>
+        5. <strong>"充值VIP必得异色"</strong> —— 官方没有付费保送异色的渠道<br>
+        6. <strong>"特定时间/方位能提高概率"</strong> —— 除"大量出没"外，没有任何位置/时间加成
+      </p>
+    </div>
+
+    <div class="tip">
+      <h4>✅ 如何判断一篇攻略是否靠谱</h4>
+      <p>
+        ① 明确给出 <strong>1.8%基础概率 + 80次保底</strong> 数据的 → 靠谱<br>
+        ② 强调 <strong>"只能同家族计数"</strong> 的 → 靠谱<br>
+        ③ 承认 <strong>"没有捷径，只能刷保底"</strong> 的 → 靠谱<br>
+        ④ 标注 <strong>数据来源（官方/17173/腾讯新闻/游民星空）</strong> 的 → 靠谱<br>
+        ⑤ 攻略发布时间 <strong>≤ 当前版本1个月内</strong> 的 → 靠谱
+      </p>
+    </div>
+
+    <div class="section-title">🚫 常见"暗坑"清单</div>
+    <div class="grid">
+      <div class="card" style="cursor:default">
+        <div class="card-head"><div class="card-name">❌ 跨系抓精灵</div></div>
+        <div class="card-row"><div class="card-label">后果</div><div class="card-value">污染池被打乱，保底进度变慢</div></div>
+      </div>
+      <div class="card" style="cursor:default">
+        <div class="card-head"><div class="card-name">❌ 不用果实刷</div></div>
+        <div class="card-row"><div class="card-label">后果</div><div class="card-value">污染触发率低，效率减半以上</div></div>
+      </div>
+      <div class="card" style="cursor:default">
+        <div class="card-head"><div class="card-name">❌ 打污染精灵前用高级球</div></div>
+        <div class="card-row"><div class="card-label">后果</div><div class="card-value">浪费高级球，需先破盾再抓</div></div>
+      </div>
+      <div class="card" style="cursor:default">
+        <div class="card-head"><div class="card-name">❌ 常驻异色用3×3刷</div></div>
+        <div class="card-row"><div class="card-label">后果</div><div class="card-value">效率低于单系连抓</div></div>
+      </div>
+      <div class="card" style="cursor:default">
+        <div class="card-head"><div class="card-name">❌ 不蹲大量出没活动</div></div>
+        <div class="card-row"><div class="card-label">后果</div><div class="card-value">异色出货率×2的窗口错失</div></div>
+      </div>
+      <div class="card" style="cursor:default">
+        <div class="card-head"><div class="card-name">❌ 赛季末拖延</div></div>
+        <div class="card-row"><div class="card-label">后果</div><div class="card-value">赛季结束直接绝版，永久无法补救</div></div>
+      </div>
+    </div>
+
+    <div class="sources">
+      <h4>📚 本站数据来源（均为主流攻略站，可交叉验证）</h4>
+      <ul>
+        <li>17173《洛克王国世界：异色宠物最全攻略（含3×3速刷法+全宠物点位+保底机制）》 2026-04-03</li>
+        <li>腾讯新闻《洛克王国异色精灵攻略：16只限时获取，80抽保底必得》2026-04-05</li>
+        <li>游民星空《洛克王国世界PVE精灵阵容推荐 PVE强力精灵推荐》2026-04-07</li>
+        <li>游民星空《洛克王国世界异色精灵抓取技巧》2026-04-02</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<script>
+// ==================== 数据 ====================
+const SHINY_DATA = [
+  // 常驻
+  {name:'异色大耳帽兜', type:'perm', family:'幻系', loc:'星霜崖地 → 岚语峰上方', tip:'单系连抓冲80次保底'},
+  {name:'异色恶魔狼', type:'perm', family:'恶系', loc:'商店街西 → 洛克里安庇护所', tip:'单系连抓，保底稳'},
+  {name:'异色拉特 / 酷拉', type:'perm', family:'电系', loc:'望风半岛 / 王国监狱', tip:'两只同家族，保底共用'},
+  {name:'异色呼呼猪', type:'perm', family:'一般系', loc:'彼得大道 → 宠物园深处', tip:'单系连抓'},
+  {name:'异色格兰球', type:'perm', family:'草系', loc:'索米亚草原 → 普拉塔草原', tip:'单系连抓'},
+  {name:'异色机械方方', type:'perm', family:'机械系', loc:'弃之宝岛 → 维修站', tip:'单系连抓'},
+  {name:'异色音速犬', type:'perm', family:'火系', loc:'维苏威火山 → 火山口', tip:'单系连抓'},
+  // 赛季限定
+  {name:'异色月牙雪熊', type:'season', family:'冰系', loc:'星霜崖地', tip:'3×3：冰(雪豆丁)+幻(怖哭菇)', combo:{a:'雪豆丁',b:'怖哭菇'}},
+  {name:'异色粉星仔', type:'season', family:'幻系', loc:'星霜崖地', tip:'3×3：电(酷拉)+幻(怖哭菇) — 落陨星兔前置', combo:{a:'酷拉',b:'怖哭菇'}},
+  {name:'异色粉粉星', type:'season', family:'幻系', loc:'星霜崖地', tip:'3×3组合同粉星仔', combo:{a:'酷拉',b:'怖哭菇'}},
+  {name:'异色燃薪虫', type:'season', family:'火系', loc:'维苏威火山 → 地心', tip:'3×3：火(红绒十字)+草(格兰球)', combo:{a:'红绒十字',b:'格兰球'}},
+  {name:'异色空空颅', type:'season', family:'幽系', loc:'暗影崖 → 幽暗空间', tip:'3×3：幽(幽冥眼)+幻(梦悠悠)', combo:{a:'幽冥眼',b:'梦悠悠'}},
+  {name:'异色双灯鱼', type:'season', family:'水系', loc:'人鱼湾 → 亚特兰蒂斯', tip:'3×3：水(水泡壳)+水(利灯鱼)', combo:{a:'水泡壳',b:'利灯鱼'}},
+  {name:'异色贝瑟', type:'season', family:'石系', loc:'拉布朗矿山 → 水晶矿场', tip:'3×3：石(提塔)+火(音速犬)', combo:{a:'提塔',b:'音速犬'}},
+  {name:'异色嗜光嗡嗡', type:'season', family:'虫系', loc:'天空城 → 光之蔓', tip:'3×3：虫(小黄蜂)+草(奇丽草)', combo:{a:'小黄蜂',b:'奇丽草'}},
+  // 战令
+  {name:'异色极光千兽', type:'event', family:'光系', loc:'眠枭直播间抓取', tip:'活动必得，参加直播即可'},
+  {name:'异色绒仙子', type:'event', family:'草系', loc:'S1战令奖励', tip:'购买战令推进进度解锁'}
+];
+
+const CALENDAR_DATA = [
+  {date:'4.3 - 4.5', event:'红丝绒、红绒十字、治愈兔'},
+  {date:'4.10 - 4.12', event:'大耳帽兜、帽兜娃娃、雪影娃娃'},
+  {date:'4.17 - 4.19', event:'机械方方、多彩方方、立方人'},
+  {date:'4.24 - 4.26', event:'恶魔狼、恶魔狼王'},
+  {date:'5.1 - 5.3', event:'拉特、酷拉'},
+  {date:'5.8 - 5.10', event:'奇丽草、奇丽叶、奇丽花、奇丽果'},
+  {date:'5.15 - 5.17', event:'格兰种子、格兰花、格兰球'}
+];
+
+// T0 主力（PVE & PVP 通用）
+const TEAM_CORE = [
+  {name:'迪莫', tier:'T0', scene:'PVE/PVP', blood:'恶血脉',
+   skills:['折射','天洪','恶能量','闪光冲击'],
+   role:'主C', note:'高爆发，属性覆盖广'},
+  {name:'独角兽', tier:'T0', scene:'PVE/PVP', blood:'首领血脉',
+   skills:['折射','叶绿光束','气泡','虹光冲击'],
+   role:'主C', note:'多属性覆盖，对阵型无脑'},
+  {name:'罗隐', tier:'T0', scene:'PVE/PVP', blood:'无要求',
+   skills:['鸣沙陷阱','地刺','贪婪','泥浆铠甲'],
+   role:'控制/副C', note:'控场第一人，PVP必备'}
+];
+
+const TEAM_SUB = [
+  {name:'奇丽花', tier:'T1', scene:'PVE', blood:'首领血脉',
+   skills:['纤维化','氧输送','叶绿光束','光能聚集'],
+   role:'续航/辅助', note:'副本续航稳，能接力强化'},
+  {name:'火神', tier:'T1', scene:'PVE', blood:'首领血脉',
+   skills:['热身','火苗','山火','暗突袭'],
+   role:'爆发输出', note:'BOSS战爆发强'},
+  {name:'圣剑X', tier:'T1', scene:'PVE', blood:'首领血脉',
+   skills:['鸣沙陷阱','啮合传递','轴承支撑','主轴'],
+   role:'控制副C', note:'与罗隐组合有奇效'},
+  {name:'春兔', tier:'T0', scene:'PVE/PVP', blood:'首领血脉',
+   skills:['强化接力','治愈','净化','春之护佑'],
+   role:'辅助第一梯队', note:'首只官民共创，赛季最强辅助'},
+  {name:'翠顶夫人', tier:'T0', scene:'PVE', blood:'首领血脉',
+   skills:['强化接力','润泽','光合作用','翠之芒'],
+   role:'强化核心', note:'PVE通用阵容核心辅助'},
+  {name:'圣羽翼王', tier:'T1', scene:'PVE/PVP', blood:'首领血脉',
+   skills:['羽之祈祷','风之利刃','圣光普照','翼守护'],
+   role:'多核输出', note:'适配多种阵容'}
+];
+
+const TEAM_COMBO = [
+  {
+    name:'PVE 通用强化接力阵容',
+    scene:'PVE',
+    core:'翠顶夫人（接力） + 奇丽花（续航） + 罗隐/火神/圣羽翼王（多核输出）',
+    how:'翠顶夫人全程强化接力，奇丽花续航，多核输出快速清场，适配副本/推图/BOSS战',
+    strength:'多层强化，无续航压力（双续航）'
+  },
+  {
+    name:'PVP 控制核爆阵容',
+    scene:'PVP',
+    core:'罗隐（控制） + 迪莫（主C） + 春兔（辅助）',
+    how:'罗隐鸣沙陷阱+地刺开场控场，春兔强化迪莫，迪莫天洪+恶能量秒杀',
+    strength:'控制链完整，单回合切换爆发'
+  },
+  {
+    name:'PVE 开荒三神柱',
+    scene:'PVE',
+    core:'迪莫 + 独角兽 + 罗隐',
+    how:'三只T0核心精灵直接成队，属性覆盖几乎所有副本',
+    strength:'不挑血脉（除独角兽），开荒首选'
+  }
+];
+
+// ==================== Tab切换 ====================
+document.querySelectorAll('.tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ==================== 异色图鉴渲染 ====================
+const typeLabels = { perm:'常驻', season:'赛季限定', event:'战令/活动' };
+const typeBadge =  { perm:'badge-perm', season:'badge-season', event:'badge-event' };
+
+function renderShiny() {
+  const q = document.getElementById('shiny-search').value.trim().toLowerCase();
+  const type = document.getElementById('shiny-type').value;
+  const grid = document.getElementById('shiny-grid');
+  const filtered = SHINY_DATA.filter(s => {
+    if (type !== 'all' && s.type !== type) return false;
+    if (!q) return true;
+    return (s.name + s.family + s.loc + s.tip).toLowerCase().includes(q);
+  });
+
+  document.getElementById('shiny-empty').style.display = filtered.length ? 'none' : 'block';
+
+  grid.innerHTML = filtered.map(s => `
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">${s.name}</div>
+        <div class="card-badge ${typeBadge[s.type]}">${typeLabels[s.type]}</div>
+      </div>
+      <div class="card-row"><div class="card-label">系别</div><div class="card-value">${s.family}</div></div>
+      <div class="card-row"><div class="card-label">地点</div><div class="card-value">${s.loc}</div></div>
+      <div class="card-row"><div class="card-label">刷法</div><div class="card-value">${s.tip}</div></div>
+      ${s.combo ? `<div class="card-row"><div class="card-label">3×3组合</div><div class="card-value">
+        <span class="pill pill-a">A系：${s.combo.a}</span><span class="pill pill-b">B系：${s.combo.b}</span>
+      </div></div>` : ''}
+    </div>
+  `).join('');
+}
+
+// 快速跳转按钮
+const quickJump = document.getElementById('shiny-quick-jump');
+const families = [...new Set(SHINY_DATA.map(s => s.family))];
+quickJump.innerHTML = '<button class="jbtn active" data-f="">全部系别</button>' +
+  families.map(f => `<button class="jbtn" data-f="${f}">${f}</button>`).join('');
+quickJump.addEventListener('click', e => {
+  if (!e.target.classList.contains('jbtn')) return;
+  quickJump.querySelectorAll('.jbtn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  document.getElementById('shiny-search').value = e.target.dataset.f;
+  renderShiny();
+});
+
+document.getElementById('shiny-search').addEventListener('input', renderShiny);
+document.getElementById('shiny-type').addEventListener('change', renderShiny);
+renderShiny();
+
+// ==================== 日历渲染 ====================
+document.getElementById('calendar-list').innerHTML = CALENDAR_DATA.map(c => `
+  <div class="calendar">
+    <div class="cal-date">${c.date}</div>
+    <div class="cal-event">${c.event}</div>
+  </div>
+`).join('');
+
+// ==================== 阵容渲染 ====================
+function renderTeamCard(t) {
+  const tierClass = t.tier === 'T0' ? 'badge-t0' : (t.tier === 'T1' ? 'badge-t1' : 'badge-t2');
+  return `
+    <div class="card" style="cursor:default">
+      <div class="card-head">
+        <div class="card-name">${t.name}</div>
+        <div class="card-badge ${tierClass}">${t.tier}</div>
+      </div>
+      <div class="card-row"><div class="card-label">定位</div><div class="card-value">${t.role}</div></div>
+      <div class="card-row"><div class="card-label">血脉</div><div class="card-value">${t.blood}</div></div>
+      <div class="card-row"><div class="card-label">场景</div><div class="card-value">${t.scene}</div></div>
+      <div class="card-row"><div class="card-label">技能</div><div class="card-value">${t.skills.map(s => `<span class="pill">${s}</span>`).join('')}</div></div>
+      <div class="card-row"><div class="card-label">点评</div><div class="card-value" style="color:var(--text2)">${t.note}</div></div>
+    </div>
+  `;
+}
+
+function renderTeams() {
+  const q = document.getElementById('team-search').value.trim().toLowerCase();
+  const scene = document.getElementById('team-scene').value;
+  function match(t) {
+    if (scene !== 'all' && !t.scene.includes(scene)) return false;
+    if (!q) return true;
+    return (t.name + t.skills.join('') + t.role + t.note).toLowerCase().includes(q);
+  }
+  document.getElementById('team-core').innerHTML = TEAM_CORE.filter(match).map(renderTeamCard).join('') || '<div class="empty">无匹配</div>';
+  document.getElementById('team-sub').innerHTML = TEAM_SUB.filter(match).map(renderTeamCard).join('') || '<div class="empty">无匹配</div>';
+}
+
+document.getElementById('team-search').addEventListener('input', renderTeams);
+document.getElementById('team-scene').addEventListener('change', renderTeams);
+renderTeams();
+
+// 阵容组合
+document.getElementById('team-combo').innerHTML = TEAM_COMBO.map(c => `
+  <div class="team-card">
+    <div class="team-head">
+      <div class="team-title">${c.name}</div>
+      <div class="card-badge ${c.scene === 'PVE' ? 'badge-t1' : 'badge-t0'}">${c.scene}</div>
+    </div>
+    <div class="skill-row"><div class="skill-role">核心</div><div class="skill-list"><span>${c.core}</span></div></div>
+    <div class="skill-row"><div class="skill-role">打法</div><div class="skill-list" style="background:none;border:none;padding:0;color:var(--text)">${c.how}</div></div>
+    <div class="skill-row"><div class="skill-role">优势</div><div class="skill-list" style="background:none;border:none;padding:0;color:var(--green)">${c.strength}</div></div>
+  </div>
+`).join('');
+</script>
+
+</body>
+</html>
