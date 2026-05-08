@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>无休仙途 · 修仙攻略中枢 — Super NONO</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0f1a;
+    --bg2: #121a2e;
+    --bg3: #1a2540;
+    --border: #2a3a5e;
+    --jade: #7fffd4;
+    --jade2: #40e0d0;
+    --gold: #d4af37;
+    --gold2: #ffd76a;
+    --ink: #8b9dc3;
+    --cloud: #a8c5e3;
+    --crimson: #dc143c;
+    --lotus: #ff9ecd;
+    --purple: #b388eb;
+    --text: #e8ecf5;
+    --text2: #8b9dc3;
+    --text3: #4a5a7a;
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Microsoft YaHei', 'Source Han Serif SC', 'PingFang SC', serif;
+    min-height: 100vh;
+    padding-bottom: 40px;
+  }
+
+  /* Header */
+  header {
+    background: linear-gradient(180deg, #0a0f1a 0%, #0f1a2e 50%, #0a0f1a 100%);
+    border-bottom: 2px solid var(--jade);
+    padding: 36px 32px 26px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 600px 200px at 20% 0%, #7fffd422, transparent 70%),
+      radial-gradient(ellipse 600px 200px at 80% 100%, #d4af3722, transparent 70%);
+  }
+  header::after {
+    content: '☯';
+    position: absolute;
+    right: 40px; top: 30px;
+    font-size: 6rem;
+    color: var(--jade);
+    opacity: 0.08;
+    pointer-events: none;
+  }
+  header > div { position: relative; max-width: 1100px; margin: 0 auto; }
+  .tag {
+    display: inline-block;
+    color: var(--jade);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 6px;
+    padding: 2px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--jade);
+  }
+  header h1 {
+    font-size: 2rem;
+    color: #fff;
+    letter-spacing: 6px;
+    margin-bottom: 8px;
+    text-shadow: 0 0 25px var(--jade);
+    font-weight: 900;
+  }
+  header h1 span { color: var(--gold2); font-size: 1rem; letter-spacing: 2px; margin-left: 10px; }
+  header p { color: var(--cloud); font-size: 0.82rem; letter-spacing: 1px; }
+
+  /* Tabs */
+  nav.tabs {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex;
+    gap: 4px;
+    max-width: 1100px;
+    margin: 0 auto;
+    overflow-x: auto;
+  }
+  .tab {
+    background: none; border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text2);
+    padding: 12px 18px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-family: inherit;
+    transition: all .15s;
+    white-space: nowrap;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--jade); border-bottom-color: var(--jade); }
+
+  /* Main */
+  main { max-width: 1100px; margin: 0 auto; padding: 28px 24px; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .section-title {
+    font-size: 0.9rem;
+    color: var(--jade);
+    letter-spacing: 3px;
+    border-left: 3px solid var(--jade);
+    padding-left: 10px;
+    margin: 24px 0 16px;
+    font-weight: 700;
+  }
+  .section-title:first-child { margin-top: 0; }
+
+  /* Cards */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    transition: all .2s;
+  }
+  .card:hover {
+    border-color: var(--jade);
+    box-shadow: 0 4px 16px rgba(127,255,212,.1);
+    transform: translateY(-2px);
+  }
+  .card-head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .card-icon { font-size: 1.5rem; }
+  .card-name { font-size: 1.02rem; font-weight: 700; color: var(--text); flex: 1; }
+  .card-badge {
+    font-size: 0.65rem; font-weight: 700;
+    padding: 2px 8px; border-radius: 3px;
+    letter-spacing: 1px;
+  }
+  .badge-t0 { background: #dc143c22; color: var(--crimson); border: 1px solid var(--crimson); }
+  .badge-t1 { background: #d4af3722; color: var(--gold); border: 1px solid var(--gold); }
+  .badge-t2 { background: #7fffd422; color: var(--jade); border: 1px solid var(--jade); }
+  .badge-t3 { background: #b388eb22; color: var(--purple); border: 1px solid var(--purple); }
+
+  .card-row {
+    display: flex; padding: 5px 0;
+    font-size: 0.8rem;
+    border-bottom: 1px dashed #233551;
+  }
+  .card-row:last-of-type { border: none; }
+  .card-label {
+    color: var(--text2);
+    width: 64px; flex-shrink: 0;
+  }
+  .card-value { color: var(--text); flex: 1; }
+
+  .pill {
+    display: inline-block;
+    background: var(--bg3);
+    color: var(--text);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 0.72rem;
+    margin: 2px 3px 2px 0;
+    border: 1px solid var(--border);
+  }
+
+  /* 核心数据卡 */
+  .intro-panel {
+    background: linear-gradient(135deg, #121a2e, #1a2540);
+    border: 1px solid var(--jade);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+  }
+  .intro-panel h3 { color: var(--gold2); font-size: 1rem; margin-bottom: 12px; letter-spacing: 2px; }
+  .intro-panel p { color: var(--cloud); font-size: 0.85rem; line-height: 1.9; }
+  .intro-panel p strong { color: var(--jade); }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+  }
+  .feature-item {
+    background: rgba(0,0,0,.3);
+    border-radius: 6px;
+    padding: 12px 14px;
+    border-left: 3px solid var(--jade);
+  }
+  .feature-label { font-size: 0.68rem; color: var(--text2); letter-spacing: 1px; margin-bottom: 4px; }
+  .feature-value { font-size: 1rem; font-weight: 700; color: var(--gold2); }
+  .feature-sub { font-size: 0.74rem; color: var(--cloud); margin-top: 4px; line-height: 1.6; }
+
+  /* tip/warn */
+  .warn, .tip {
+    padding: 14px 18px;
+    margin-bottom: 18px;
+    border-radius: 0 6px 6px 0;
+  }
+  .warn { background: #dc143c11; border-left: 4px solid var(--crimson); }
+  .warn h4 { color: var(--crimson); font-size: 0.88rem; margin-bottom: 6px; }
+  .warn p { color: #f5a8bd; font-size: 0.8rem; line-height: 1.8; }
+  .tip { background: #7fffd411; border-left: 4px solid var(--jade); }
+  .tip h4 { color: var(--jade); font-size: 0.88rem; margin-bottom: 6px; }
+  .tip p { color: #a8e8d4; font-size: 0.8rem; line-height: 1.8; }
+
+  /* 路线图 */
+  .roadmap {
+    position: relative;
+    padding: 10px 0;
+  }
+  .roadmap::before {
+    content: '';
+    position: absolute;
+    left: 8px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--jade), var(--gold), var(--purple));
+  }
+  .stage {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 18px;
+  }
+  .stage::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 8px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--jade);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 10px var(--jade);
+  }
+  .stage-title {
+    color: var(--jade);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+  .stage-body {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 16px;
+    color: var(--text);
+    font-size: 0.82rem;
+    line-height: 1.9;
+  }
+
+  /* Table */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  th { background: var(--bg3); color: var(--jade); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.75rem; letter-spacing: 1px; }
+  td { padding: 8px 14px; border-bottom: 1px solid #1d2a44; }
+  tr:hover td { background: #1a2540; }
+
+  /* 搜索栏 */
+  .search-bar {
+    display: flex; gap: 12px; margin-bottom: 18px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .search-bar input, .search-bar select {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 7px 12px;
+    border-radius: 5px;
+    font-size: 0.82rem;
+    font-family: inherit;
+  }
+  .search-bar input { flex: 1; min-width: 200px; }
+  .search-bar input:focus, .search-bar select:focus {
+    outline: none;
+    border-color: var(--jade);
+  }
+  .search-bar label { color: var(--text2); font-size: 0.78rem; }
+
+  /* Sources */
+  .sources {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 28px;
+  }
+  .sources h4 { color: var(--text2); font-size: 0.75rem; margin-bottom: 10px; letter-spacing: 1px; }
+  .sources ul { list-style: none; }
+  .sources li {
+    color: var(--text3);
+    font-size: 0.72rem;
+    padding: 3px 0;
+    padding-left: 14px;
+    position: relative;
+  }
+  .sources li::before { content: '❖'; color: var(--jade); position: absolute; left: 0; }
+
+  .empty { text-align: center; padding: 40px 20px; color: var(--text3); font-size: 0.85rem; }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--jade); }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="tag">WUXIU XIANTU · 修仙攻略中枢</div>
+    <h1>⛰ 无休仙途 <span>· 荒泽修真全解</span></h1>
+    <p>放置策略 × 修仙养成 × 门派经营 &nbsp;|&nbsp; 灵根·功法·装备·道途 四位一体攻略</p>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" data-tab="intro">📜 游戏概述</button>
+  <button class="tab" data-tab="start">🌱 新手开局</button>
+  <button class="tab" data-tab="linggen">☯ 灵根系统</button>
+  <button class="tab" data-tab="gongfa">📖 功法修炼</button>
+  <button class="tab" data-tab="dao">🌟 六道选择</button>
+  <button class="tab" data-tab="equip">⚔ 装备锻造</button>
+  <button class="tab" data-tab="team">👥 阵容搭配</button>
+  <button class="tab" data-tab="sect">🏯 门派经营</button>
+  <button class="tab" data-tab="tips">💡 实战技巧</button>
+</nav>
+
+<main>
+
+  <!-- ==================== 游戏概述 ==================== -->
+  <section id="tab-intro" class="tab-content active">
+
+    <div class="intro-panel">
+      <h3>📜 仙途启程 · 游戏核心定位</h3>
+      <p>
+        《无休仙途》是 GOCORE 团队开发的<strong>放置挂机 × 策略经营 × 修仙养成</strong>三位一体游戏。
+        玩家化身天资卓绝的小修士，受仙人所托从<strong>无名小岛</strong>启程，
+        穿越<strong>荒泽大陆</strong>结识各方势力，最终目标是<strong>羽化飞升登临仙界</strong>。
+      </p>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-label">核心玩法</div>
+          <div class="feature-value">4 大模块</div>
+          <div class="feature-sub">角色培养 · 门派经营 · 队伍组建 · 大陆探索</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-label">道途分支</div>
+          <div class="feature-value">6 种道途</div>
+          <div class="feature-sub">每角色可选一种，决定长期修行方向</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-label">主角特权</div>
+          <div class="feature-value" style="font-size:0.9rem">自由技能组合</div>
+          <div class="feature-sub">跨职业混搭，打造独特流派</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-label">终极目标</div>
+          <div class="feature-value" style="font-size:0.9rem">羽化飞升</div>
+          <div class="feature-sub">通关即飞升 · 10弟子为一标准</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">🗺️ 修仙之路全景</div>
+    <div class="roadmap">
+      <div class="stage">
+        <div class="stage-title">① 无名小岛 · 启程</div>
+        <div class="stage-body">
+          天资卓绝但玩世不恭的小修士，接受仙人嘱托，踏上修真旅程。
+          初始仅有 3 点功德，需谨慎选择貌美弟子（赌<strong style="color:var(--gold)">灵根变异</strong>），为后续开局打好基础。
+        </div>
+      </div>
+      <div class="stage">
+        <div class="stage-title">② 荒泽大陆 · 探索 & 经营</div>
+        <div class="stage-body">
+          离开小岛进入广阔大陆。核心任务：<br>
+          ▸ 探访各大门派，搜集资源与声望<br>
+          ▸ 经营宗门，建造产出建筑实现<strong style="color:var(--jade)">躺平刷资源</strong><br>
+          ▸ 招募不同天资/职业角色组建队伍<br>
+          ▸ 触发随机事件，获取奇遇宝物
+        </div>
+      </div>
+      <div class="stage">
+        <div class="stage-title">③ 角色养成 · 道途选择</div>
+        <div class="stage-body">
+          每个角色从 <strong style="color:var(--purple)">六种道途</strong> 中选一条修行。同职业角色因培养路线不同，最终战力可天差地别。
+          主角享有<strong style="color:var(--gold)">跨职业技能自由组合</strong>特权。
+        </div>
+      </div>
+      <div class="stage">
+        <div class="stage-title">④ 羽化飞升 · 登临仙界</div>
+        <div class="stage-body">
+          修行圆满后飞升仙界——但仙界并非终点，深处仍有大量内容待探索。
+          最终目标：揭开<strong style="color:var(--crimson)">"仙途"</strong>的真相。
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">🎯 制胜六字诀</div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-head"><div class="card-icon">💎</div><div class="card-name">资源收集</div></div>
+        <div class="card-row"><div class="card-value">探索勤刷资源 → 支撑修炼与宗门建设</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🏯</div><div class="card-name">宗门建设</div></div>
+        <div class="card-row"><div class="card-value">优先升级产出类建筑 → 实现躺平刷资源</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon">👥</div><div class="card-name">阵容搭配</div></div>
+        <div class="card-row"><div class="card-value">招募不同职业角色 → 注重技能互补</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🌟</div><div class="card-name">主角培养</div></div>
+        <div class="card-row"><div class="card-value">自由组合跨职业技能 → 打造独特流派</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon">☯</div><div class="card-name">道途规划</div></div>
+        <div class="card-row"><div class="card-value">六种道途谨慎选择 → 规划长期路线</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon">⚔</div><div class="card-name">装备制作</div></div>
+        <div class="card-row"><div class="card-value">锻造 + 附魔 → 弥补天赋不足，装备即一切</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 新手开局 ==================== -->
+  <section id="tab-start" class="tab-content">
+    <div class="tip">
+      <h4>💡 开局三件事（必看）</h4>
+      <p>
+        ① 选择<strong>貌美弟子</strong>（右上角美人）作为初始核心，赌一波<strong>灵根变异</strong><br>
+        ② 初始仅有 3 点功德，不要乱花 — 优先投入到灵根和核心功法<br>
+        ③ <strong>自动升级功法关掉</strong>，手动规划技能升级节奏（避免浪费灵气）
+      </p>
+    </div>
+
+    <div class="section-title">🌱 第1阶段（凡人期）</div>
+    <div class="stage-body">
+      ▸ <strong style="color:var(--jade)">偷灵根上限</strong>：开始准备时尽量偷取，优先级 <span style="color:var(--gold)">木 → 火 → 土 → 水 → 金</span><br>
+      ▸ 预留 <strong style="color:var(--gold2)">10 年卡保底</strong>，计算当前五灵根升满所需灵气年限 × 85%（家园灵池15%暴击率）<br>
+      ▸ 前期无官职，无法实现五行之气自动增长，需手动完成大量操作维持修炼
+    </div>
+
+    <div class="section-title">🌾 第2阶段（炼气期）</div>
+    <div class="stage-body">
+      ▸ 把当前门派 <strong>4 个功法遗忘</strong>，重新学习（功法变 1 级可用灵气重新升级，刷高等级）<br>
+      ▸ 闪灵属性尤为关键 — 避免被 Boss 连续闪避拖垮战局<br>
+      ▸ 开始挖掘地图资源，建立第一批稳定产出
+    </div>
+
+    <div class="section-title">☁️ 第3阶段（筑基期）</div>
+    <div class="stage-body">
+      ▸ 开峰立阁，建设宗门基础<br>
+      ▸ 培养 10 名弟子（通关标准）<br>
+      ▸ 装备制作开始提上日程 — <strong style="color:var(--gold)">装备能弥补天赋</strong>，天赋有的属性装备都能做出来<br>
+      ▸ 元神天赋有 <strong>后发制人</strong> 后，切换到<strong>副五</strong>修炼
+    </div>
+
+    <div class="section-title">🏆 毕业阶段（金丹+）</div>
+    <div class="stage-body">
+      ▸ 天赋二周目可用洗髓丹刷，但一周目意义不大<br>
+      ▸ 刷高灵根用于后期多带红技能<br>
+      ▸ 总五行到 1500w 左右后，主五升满 → 副五升到 22 级<br>
+      ▸ 10 弟子飞升，一周目通关
+    </div>
+
+    <div class="section-title">💰 前期刷钱法</div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🏪</div><div class="card-name">挂机地图选择</div></div>
+        <div class="card-row"><div class="card-label">原则</div><div class="card-value">优先选择怪物经验/掉落率最高的地图</div></div>
+        <div class="card-row"><div class="card-label">提示</div><div class="card-value">随等级提升切换，不要死磕一张图</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🔨</div><div class="card-name">装备制作刷钱</div></div>
+        <div class="card-row"><div class="card-label">套路</div><div class="card-value">锻造 50 把后选优 → 以蓝色祭品强化蓝色武器</div></div>
+        <div class="card-row"><div class="card-label">关键</div><div class="card-value">幸运连击装备是神器 — 实战爆发强</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🌿</div><div class="card-name">采集自动化</div></div>
+        <div class="card-row"><div class="card-label">设置</div><div class="card-value">宗门建筑优先升级产出类 → 持续自动掉落</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 灵根系统 ==================== -->
+  <section id="tab-linggen" class="tab-content">
+    <div class="intro-panel">
+      <h3>☯ 灵根 · 修真之根</h3>
+      <p>
+        灵根决定<strong>吸纳天地灵气的效率与潜力</strong>，是修真道路的根基。
+        共分五行：<strong style="color:var(--crimson)">火</strong> ·
+        <strong style="color:var(--jade)">水</strong> ·
+        <strong style="color:var(--gold2)">木</strong> ·
+        <strong style="color:var(--gold)">土</strong> ·
+        <strong style="color:var(--cloud)">金</strong>。
+        变异灵根（紫/红）属性远超普通灵根，决定上限。
+      </p>
+    </div>
+
+    <div class="section-title">⚖️ 五行灵根对照表</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>灵根</th><th>属性强项</th><th>优先级</th><th>推荐门派/道途</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🌳 木灵根</td><td>生机回复 · 辅助续航</td><td><span class="card-badge badge-t0">S</span></td><td>医道 · 回血流</td></tr>
+          <tr><td>🔥 火灵根</td><td>高爆发输出 · AoE</td><td><span class="card-badge badge-t0">S</span></td><td>剑道 · 烈焰流</td></tr>
+          <tr><td>🪨 土灵根</td><td>防御 · 抗性</td><td><span class="card-badge badge-t1">A</span></td><td>体修 · 肉盾流</td></tr>
+          <tr><td>💧 水灵根</td><td>控制 · 减速</td><td><span class="card-badge badge-t1">A</span></td><td>阵法 · 控场流</td></tr>
+          <tr><td>⚙ 金灵根</td><td>物理穿透 · 破甲</td><td><span class="card-badge badge-t2">B</span></td><td>器修 · 锻造流</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title">🎯 偷灵根攻略（核心）</div>
+    <div class="warn">
+      <h4>⚠ 偷灵根优先级（死记硬背）</h4>
+      <p>
+        <strong style="color:var(--gold)">木 > 火 > 土 > 水 > 金</strong><br>
+        ▸ 开始准备时尽可能偷取灵根上限<br>
+        ▸ 计算当前灵根升满所需灵气年限 × 85%（家园灵池暴击率15%）<br>
+        ▸ 预留 <strong style="color:var(--crimson)">10 年卡</strong> 保底，防止意外
+      </p>
+    </div>
+
+    <div class="section-title">💎 灵根变异机制</div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🌟</div><div class="card-name">普通灵根</div><div class="card-badge badge-t2">白</div></div>
+        <div class="card-row"><div class="card-label">特点</div><div class="card-value">基础属性，均衡但无突出</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon">💫</div><div class="card-name">变异灵根</div><div class="card-badge badge-t1">紫</div></div>
+        <div class="card-row"><div class="card-label">特点</div><div class="card-value">单项属性远超普通，开局必选</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🔥</div><div class="card-name">极品变异</div><div class="card-badge badge-t0">红</div></div>
+        <div class="card-row"><div class="card-label">特点</div><div class="card-value">双属性变异，开局赌美人<strong style="color:var(--gold)">必抽</strong></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 功法修炼 ==================== -->
+  <section id="tab-gongfa" class="tab-content">
+    <div class="intro-panel">
+      <h3>📖 功法体系</h3>
+      <p>
+        功法是修炼的核心 — 决定技能、属性加成与流派走向。
+        每门派有独特功法体系，角色可在不同门派学习，<strong>跨门派功法搭配</strong>是高阶玩法。
+        主角享有<strong>自由组合</strong>特权，可混搭所有门派技能。
+      </p>
+    </div>
+
+    <div class="section-title">🎴 核心功法推荐（按流派）</div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-head"><div class="card-icon">⚔️</div><div class="card-name">五鬼功法</div><div class="card-badge badge-t2">入门</div></div>
+        <div class="card-row"><div class="card-label">上限</div><div class="card-value">10 级封顶</div></div>
+        <div class="card-row"><div class="card-label">定位</div><div class="card-value">前期过渡，主流派的辅助技能</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🗻</div><div class="card-name">五岳功法</div><div class="card-badge badge-t0">主力</div></div>
+        <div class="card-row"><div class="card-label">上限</div><div class="card-value">10 级（前期）→ 22 级（后期）</div></div>
+        <div class="card-row"><div class="card-label">解锁</div><div class="card-value">总五行 1500w 后，主五升满解锁 22 级</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon">⭐</div><div class="card-name">五斗功法</div><div class="card-badge badge-t0">主力</div></div>
+        <div class="card-row"><div class="card-label">上限</div><div class="card-value">10 级（前期）→ 22 级（后期）</div></div>
+        <div class="card-row"><div class="card-label">策略</div><div class="card-value">与五岳并列，根据流派选一主修</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon">🔮</div><div class="card-name">副五功法</div><div class="card-badge badge-t1">解锁后</div></div>
+        <div class="card-row"><div class="card-label">条件</div><div class="card-value">元神天赋出"后发制人"后启用</div></div>
+        <div class="card-row"><div class="card-label">效果</div><div class="card-value">副五升满后整体战力飙升</div></div>
+      </div>
+    </div>
+
+    <div class="section-title">🔁 刷功法等级技巧</div>
+    <div class="tip">
+      <h4>💡 遗忘重学大法</h4>
+      <p>
+        ① 关闭<strong>自动升级功法</strong>开关<br>
+        ② 把当前门派 <strong>4 个功法全部遗忘</strong>（一本一本遗忘，一次一次学）<br>
+        ③ 重新学习 → 功法变 1 级 → 用灵气重新升级<br>
+        ④ 循环执行可大幅压缩等级成本，省下大量灵气
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== 六道选择 ==================== -->
+  <section id="tab-dao" class="tab-content">
+    <div class="intro-panel">
+      <h3>🌟 六种道途</h3>
+      <p>
+        每个角色从<strong>六条道途</strong>中选一条，决定长期修行方向与技能倾向。
+        主角可自由跨道途组合技能，其他角色则<strong>一次选择定终身</strong>，谨慎决策！
+      </p>
+    </div>
+
+    <div class="grid" id="dao-grid"></div>
+
+    <div class="warn" style="margin-top:24px">
+      <h4>⚠ 道途选择常见误区</h4>
+      <p>
+        ① 不要<strong>盲目跟风选择"最强"道途</strong> — 每条道途都有独特定位，根据角色灵根/职业匹配更重要<br>
+        ② 队伍搭配比单角色强度更重要，1 条输出道 + 1 条辅助道 + 1 条控制道 才是王道<br>
+        ③ 非主角选错道途无法撤回 — <strong>存档后再选</strong>，发现不对立刻读档
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== 装备锻造 ==================== -->
+  <section id="tab-equip" class="tab-content">
+    <div class="intro-panel">
+      <h3>⚔ 装备体系 · 弥补一切</h3>
+      <p>
+        二周目玩家共识：<strong style="color:var(--gold)">做装备弥补一切，天赋能有的属性装备都能做出来</strong>。
+        装备分为<strong style="color:var(--crimson)">白/蓝/紫/橙/红</strong>五阶，词条和锻造质量直接决定战力天花板。
+      </p>
+    </div>
+
+    <div class="section-title">🔨 装备制作流程（保姆级）</div>
+    <div class="roadmap">
+      <div class="stage">
+        <div class="stage-title">① 收集基础材料</div>
+        <div class="stage-body">
+          通过<strong>挂机地图掉落、宗门建筑产出、探索奇遇</strong>三种方式收集铁锭、灵木、妖核等基础材料。
+        </div>
+      </div>
+      <div class="stage">
+        <div class="stage-title">② 锻造 50 把选优</div>
+        <div class="stage-body">
+          不要做一把就用一把 — <strong style="color:var(--gold)">批量锻造 50 把同类型武器</strong>，
+          对比词条选出最优（幸运连击、暴击率、闪灵等）。
+        </div>
+      </div>
+      <div class="stage">
+        <div class="stage-title">③ 蓝色祭品强化蓝色武器</div>
+        <div class="stage-body">
+          不要用白色祭品升蓝色武器 — <strong>同阶祭品强化</strong>成功率和增幅显著更高。
+          紫色武器用紫色祭品，以此类推。
+        </div>
+      </div>
+      <div class="stage">
+        <div class="stage-title">④ 附魔 · 点石成金</div>
+        <div class="stage-body">
+          附魔系统是装备终极形态 — 给已有装备叠加额外属性词条。
+          优先附魔<strong style="color:var(--jade)">闪灵、暴击、幸运连击</strong>。
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">🏷️ 关键装备词条优先级</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>词条</th><th>效果</th><th>优先级</th><th>适用流派</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🎯 <strong>幸运连击</strong></td><td>普攻触发额外一次攻击</td><td><span class="card-badge badge-t0">S+</span></td><td>所有输出流派</td></tr>
+          <tr><td>⚡ <strong>闪灵</strong></td><td>闪避率提升</td><td><span class="card-badge badge-t0">S</span></td><td>防御/根骨流（核心）</td></tr>
+          <tr><td>💥 暴击率/伤害</td><td>普攻/技能暴击</td><td><span class="card-badge badge-t1">A</span></td><td>爆发输出流</td></tr>
+          <tr><td>🛡 闪避反击</td><td>闪避后反打</td><td><span class="card-badge badge-t1">A</span></td><td>根骨流神词条</td></tr>
+          <tr><td>🔮 法力恢复</td><td>法力值持续回复</td><td><span class="card-badge badge-t2">B</span></td><td>长战斗续航</td></tr>
+          <tr><td>💪 攻击力</td><td>基础攻击提升</td><td><span class="card-badge badge-t3">C</span></td><td>非核心，装备词条弱于其他</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="warn" style="margin-top:18px">
+      <h4>⚠ 装备常见误区</h4>
+      <p>
+        ① <strong>属性方面完全不要攻击力</strong> — 直接上输出词条（幸运连击/暴击），攻击力性价比最差<br>
+        ② 别舍不得拆装备 — 新装备更优秀就立刻换，旧装备作祭品<br>
+        ③ 橙色以上装备要追求双词条，不要凑合单词条
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== 阵容搭配 ==================== -->
+  <section id="tab-team" class="tab-content">
+    <div class="intro-panel">
+      <h3>👥 毕业阵容结构</h3>
+      <p>
+        标准毕业阵容 = <strong>1 主角 + 2 核心 + 2 辅助 + 后备 10 弟子</strong>。
+        阵容搭配原则：<strong>技能互补、属性克制、攻防兼备</strong>。
+      </p>
+    </div>
+
+    <div class="section-title">🏆 推荐阵容（实战验证）</div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon">🔥</div>
+          <div class="card-name">根骨流暴击队</div>
+          <div class="card-badge badge-t0">T0</div>
+        </div>
+        <div class="card-row"><div class="card-label">核心</div><div class="card-value">根骨流主角（闪灵+幸运连击）</div></div>
+        <div class="card-row"><div class="card-label">副C</div><div class="card-value">火系爆发 + 木系回血</div></div>
+        <div class="card-row"><div class="card-label">思路</div><div class="card-value">闪灵躲伤害，幸运连击打爆发，面对高闪避 Boss 用穿透装备</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon">⚡</div>
+          <div class="card-name">五岳主修队</div>
+          <div class="card-badge badge-t0">T0</div>
+        </div>
+        <div class="card-row"><div class="card-label">核心</div><div class="card-value">五岳功法 22 级主角</div></div>
+        <div class="card-row"><div class="card-label">副五</div><div class="card-value">后发制人 + 副五升级</div></div>
+        <div class="card-row"><div class="card-label">思路</div><div class="card-value">总五行 1500w 后开启，战力稳定压制</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon">🌿</div>
+          <div class="card-name">医道续航队</div>
+          <div class="card-badge badge-t1">T1</div>
+        </div>
+        <div class="card-row"><div class="card-label">核心</div><div class="card-value">木灵根医道辅助</div></div>
+        <div class="card-row"><div class="card-label">副C</div><div class="card-value">火/金系输出</div></div>
+        <div class="card-row"><div class="card-label">思路</div><div class="card-value">持久战不死鸟，对抗高伤害 Boss 神U</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon">🛡️</div>
+          <div class="card-name">体修肉盾队</div>
+          <div class="card-badge badge-t1">T1</div>
+        </div>
+        <div class="card-row"><div class="card-label">核心</div><div class="card-value">土灵根体修前排</div></div>
+        <div class="card-row"><div class="card-label">副C</div><div class="card-value">后排远程输出</div></div>
+        <div class="card-row"><div class="card-label">思路</div><div class="card-value">前排抗伤，后排收割，开荒首选</div></div>
+      </div>
+    </div>
+
+    <div class="section-title">📌 阵容搭配铁律</div>
+    <div class="tip">
+      <h4>💡 三大原则</h4>
+      <p>
+        ① <strong>红技能不要贪多</strong> — 后期多带红技能需要高灵根支撑，资源不够不如少带精修<br>
+        ② <strong>同队伍忌 5 个纯输出</strong> — 至少留一辅助位回血/上增益<br>
+        ③ <strong>不要纠结完美阵容</strong> — 装备能弥补一切，配招会影响实战体验，但天赋早期全靠肝
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== 门派经营 ==================== -->
+  <section id="tab-sect" class="tab-content">
+    <div class="intro-panel">
+      <h3>🏯 宗门经营 · 躺平刷资源的关键</h3>
+      <p>
+        宗门是仙途远行的<strong>坚实后盾</strong>。合理规划建筑可实现<strong>自动化产出</strong>，
+        让你专注修炼与探索，不用手忙脚乱刷资源。
+      </p>
+    </div>
+
+    <div class="section-title">🏗️ 宗门建筑优先级</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>建筑</th><th>作用</th><th>升级优先级</th><th>建议等级</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🌾 灵田</td><td>自动产出灵气/灵草</td><td><span class="card-badge badge-t0">1</span></td><td>满级优先</td></tr>
+          <tr><td>⛰ 矿洞</td><td>产出锻造材料</td><td><span class="card-badge badge-t0">2</span></td><td>满级优先</td></tr>
+          <tr><td>📚 藏经阁</td><td>功法研习加速</td><td><span class="card-badge badge-t1">3</span></td><td>Lv18</td></tr>
+          <tr><td>🔨 锻造房</td><td>装备制作提速 + 成功率</td><td><span class="card-badge badge-t1">4</span></td><td>Lv15</td></tr>
+          <tr><td>🐦 灵兽园</td><td>灵宠培育</td><td><span class="card-badge badge-t2">5</span></td><td>按需</td></tr>
+          <tr><td>🎭 弟子堂</td><td>弟子招募与培养</td><td><span class="card-badge badge-t2">6</span></td><td>Lv10</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title">🏡 仙府常见疑问</div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-head"><div class="card-name">Q: 仙府升级缺灵蕴？</div></div>
+        <div class="card-row"><div class="card-value">刚入手仙府的新手，<strong>优先摆灵蕴值高的家具</strong>升级要紧。满18级后无等级和材料限制，自由装修</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-name">Q: 圃园等级？</div></div>
+        <div class="card-row"><div class="card-value">升级时<strong>不要随意调整圃园</strong>，避免打乱产出节奏</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-name">Q: DLC有必要买吗？</div></div>
+        <div class="card-row"><div class="card-value">一周目<strong>不推荐</strong>买 DLC，体验完核心内容再决定。二周目想刷高天赋可考虑洗髓丹相关DLC</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 实战技巧 ==================== -->
+  <section id="tab-tips" class="tab-content">
+    <div class="section-title">💡 二周目老玩家总结的硬核技巧</div>
+
+    <div class="search-bar">
+      <input id="tip-search" placeholder="🔍 搜索技巧关键词..." />
+      <label>阶段：
+        <select id="tip-stage">
+          <option value="all">全部</option>
+          <option value="开局">开局期</option>
+          <option value="前期">前期</option>
+          <option value="中期">中期</option>
+          <option value="后期">后期</option>
+        </select>
+      </label>
+    </div>
+
+    <div id="tips-list"></div>
+
+    <div class="sources">
+      <h4>📚 本攻略数据来源（多源交叉验证）</h4>
+      <ul>
+        <li>多特图文教程《无休仙途核心玩法与制胜秘籍》2025-04-22</li>
+        <li>游侠网《无休仙途攻略秘籍专区》</li>
+        <li>九游手机游戏《无休仙途玩法攻略》2024-08-04</li>
+        <li>百度贴吧无休仙途吧《一周目新手必看：毕业阵容、资源分配与核心玩法》</li>
+        <li>百度贴吧《新手攻略：主角属性、装备词条及前期刷钱法》</li>
+        <li>百度贴吧《开局特性 - 天赋与装备关系》2026-04-11</li>
+        <li>TapTap《偷灵根攻略》、《装备制作流程一镜到底》2025-04-03</li>
+        <li>新浪科技《无极仙途萌新开门派攻略》2025-10-31</li>
+        <li>新浪网《无极仙途根骨流前期攻略》2026-01-19</li>
+        <li>中关村在线《无极仙途：修真进阶全攻略》2026-03-13</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<script>
+// ============= 六道数据 =============
+const DAO_DATA = [
+  {name:'剑道', icon:'⚔️', tier:'T0', role:'物理爆发输出',
+   spec:'快速高伤，普攻/技能爆发强，秒杀速度第一',
+   suit:'火/金灵根 + 闪灵装备'},
+  {name:'法道', icon:'🔮', tier:'T0', role:'法术远程输出',
+   spec:'远距离AOE，法力消耗大，需精致词条支撑',
+   suit:'火/水灵根 + 法力回复装备'},
+  {name:'体修', icon:'🛡', tier:'T1', role:'前排肉盾',
+   spec:'高血量高防御，承伤能力顶尖，反伤流派',
+   suit:'土灵根 + 防御/闪避装备'},
+  {name:'医道', icon:'🌿', tier:'T1', role:'全队辅助',
+   spec:'持续回血+增益，长战斗必备，Boss 团灭克星',
+   suit:'木灵根 + 法力恢复装备'},
+  {name:'阵法', icon:'🌀', tier:'T2', role:'控制 / 增益',
+   spec:'群体控制，Debuff叠加，团队战增伤核心',
+   suit:'水/木灵根 + 智力装备'},
+  {name:'器修', icon:'⚙', tier:'T2', role:'锻造 / 武器强化',
+   spec:'自身锻造属性加成，装备强化效率更高',
+   suit:'金灵根 + 自产武器流'}
+];
+
+const div = document.getElementById('dao-grid');
+if (div) {
+  div.innerHTML = DAO_DATA.map(d => `
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon">${d.icon}</div>
+        <div class="card-name">${d.name}</div>
+        <div class="card-badge badge-${d.tier.toLowerCase()}">${d.tier}</div>
+      </div>
+      <div class="card-row"><div class="card-label">定位</div><div class="card-value">${d.role}</div></div>
+      <div class="card-row"><div class="card-label">特点</div><div class="card-value">${d.spec}</div></div>
+      <div class="card-row"><div class="card-label">搭配</div><div class="card-value" style="color:var(--jade)">${d.suit}</div></div>
+    </div>
+  `).join('');
+}
+
+// ============= 实战技巧 =============
+const TIPS_DATA = [
+  {stage:'开局', title:'🎯 偷灵根优先级', desc:'开始准备时尽可能偷取灵根上限，优先级：<strong>木 → 火 → 土 → 水 → 金</strong>。木灵根续航无敌是生存根基。'},
+  {stage:'开局', title:'🎨 赌美人变异', desc:'开局注意右上角的美人，<strong>选择她并把灵根刷满</strong>，追求双属性变异（红色灵根）。这是一周目最划算的投资。'},
+  {stage:'开局', title:'🔢 10年卡保底', desc:'计算当前五灵根升满所需灵气年限 × 85%（家园灵池15%暴击率）。<strong>预留10年卡保底</strong>，可适当冒险。'},
+  {stage:'前期', title:'🔁 功法遗忘重学', desc:'关闭自动升级功法，<strong>把当前门派4个功法全部遗忘</strong>再重新学习 → 功法变1级可重新升级，灵气利用率暴涨。'},
+  {stage:'前期', title:'👻 闪灵是核心', desc:'根骨流最怕的不是伤害不足，而是<strong>敌人高闪避拖长战局</strong>。装备必带闪灵词条，Boss连续闪避会被拖垮。'},
+  {stage:'前期', title:'💰 挂机地图选择', desc:'跟随境界提升切换挂机地图，<strong>优先选择经验/掉落率最高</strong>的地图。不要固守一张图死磕。'},
+  {stage:'中期', title:'⚒ 锻造50选1', desc:'批量锻造50把同类武器，对比词条选最优。<strong>以蓝色祭品强化蓝色武器</strong>，同阶祭品效率最高。'},
+  {stage:'中期', title:'❌ 攻击力是垃圾词条', desc:'装备属性<strong>完全不要攻击力</strong>。直接上<strong>幸运连击、闪灵、暴击</strong>，性价比高10倍。'},
+  {stage:'中期', title:'🎭 阵容必留辅助位', desc:'同队伍忌5个纯输出，<strong>至少留1个辅助位</strong>回血/上增益。Boss高伤害局瞬间生存无忧。'},
+  {stage:'后期', title:'⭐ 五岳/五斗冲22级', desc:'总五行到<strong>1500w左右</strong>后，主五升满可升到22级。副五也跟上升级，战力质变。'},
+  {stage:'后期', title:'🔄 副五启用时机', desc:'元神天赋出 <strong>"后发制人"</strong> 后，立即切换到副五修炼。这是后期主要战力增长点。'},
+  {stage:'后期', title:'🎓 10弟子通关标准', desc:'培养<strong>10名弟子飞升</strong>即可通关一周目。不需要全员神装，关键弟子装备到位即可。'},
+  {stage:'后期', title:'🧪 DLC与洗髓丹', desc:'二周目天赋可用洗髓丹刷，但<strong>做装备弥补一切</strong>，天赋能有的属性装备都能做出来。DLC非必需。'},
+  {stage:'开局', title:'🏯 开峰立阁节奏', desc:'开局功德仅3点，要<strong>谨慎分配</strong>。优先建灵田矿洞等产出类建筑，避免浪费在装饰性建筑上。'},
+  {stage:'前期', title:'🌿 宗门自动化', desc:'宗门建筑升级顺序：<strong>灵田 → 矿洞 → 藏经阁 → 锻造房 → 灵兽园</strong>。前两个满级再考虑其他。'}
+];
+
+function renderTips() {
+  const q = document.getElementById('tip-search').value.trim().toLowerCase();
+  const stage = document.getElementById('tip-stage').value;
+  const list = document.getElementById('tips-list');
+  if (!list) return;
+
+  const filtered = TIPS_DATA.filter(t => {
+    if (stage !== 'all' && t.stage !== stage) return false;
+    if (!q) return true;
+    return (t.title + t.desc).toLowerCase().includes(q);
+  });
+
+  if (!filtered.length) {
+    list.innerHTML = '<div class="empty">😢 未找到匹配技巧</div>';
+    return;
+  }
+
+  list.innerHTML = `<div class="grid">${filtered.map(t => `
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">${t.title}</div>
+        <div class="card-badge badge-t2">${t.stage}</div>
+      </div>
+      <div class="card-row">
+        <div class="card-value" style="color:var(--text2);line-height:1.8">${t.desc}</div>
+      </div>
+    </div>
+  `).join('')}</div>`;
+}
+
+document.getElementById('tip-search').addEventListener('input', renderTips);
+document.getElementById('tip-stage').addEventListener('change', renderTips);
+renderTips();
+
+// ============= Tab切换 =============
+document.querySelectorAll('.tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
