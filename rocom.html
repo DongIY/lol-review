@@ -381,6 +381,7 @@
 
 <nav class="tabs">
   <button class="tab active" data-tab="mechanism">🧠 机制说明</button>
+  <button class="tab" data-tab="training">💎 精灵培养</button>
   <button class="tab" data-tab="shiny">🌈 异色图鉴</button>
   <button class="tab" data-tab="calendar">📅 大量出没日历</button>
   <button class="tab" data-tab="teams">⚔️ 阵容 & 技能</button>
@@ -516,6 +517,118 @@
     </div>
   </section>
 
+  <!-- ========== 精灵培养 ========== -->
+  <section id="tab-training" class="tab-content">
+
+    <div class="mechanism">
+      <h3>💎 培养系统核心 — 天分 / 性格 / 技能 三维</h3>
+      <p style="color:#d5c8ff;font-size:0.82rem;line-height:1.8">
+        每只精灵的培养功率 = <strong style="color:var(--gold)">天分（决定个体值上限）</strong> ×
+        <strong style="color:var(--gold)">性格（属性增益/减益匹配定位）</strong> ×
+        <strong style="color:var(--gold)">技能搭配（PVE/PVP分流）</strong>
+      </p>
+      <div class="mechanism-grid">
+        <div class="mech-item">
+          <div class="mech-label">天分档位</div>
+          <div class="mech-value">4档</div>
+          <div class="mech-sub">了不起 > 相当好 > 还不错 > 一般般</div>
+        </div>
+        <div class="mech-item">
+          <div class="mech-label">资质项数</div>
+          <div class="mech-value">1-3项</div>
+          <div class="mech-sub">天分越高，加成项越多</div>
+        </div>
+        <div class="mech-item">
+          <div class="mech-label">六维属性</div>
+          <div class="mech-value" style="font-size:.85rem">生命/物攻/魔攻/物防/魔防/速度</div>
+          <div class="mech-sub">性格影响两项（+/-）</div>
+        </div>
+        <div class="mech-item">
+          <div class="mech-label">等级上限</div>
+          <div class="mech-value">60级</div>
+          <div class="mech-sub">受魔法等级限制</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">⚙️ 精灵筛选 & 搜索</div>
+    <div class="search-bar">
+      <input id="train-search" placeholder="🔍 搜索精灵名 / 技能 / 性格..." />
+      <label>梯度：
+        <select id="train-tier">
+          <option value="all">全部</option>
+          <option value="T0">T0 顶级</option>
+          <option value="T1">T1 强力</option>
+          <option value="T2">T2 实用</option>
+        </select>
+      </label>
+      <label>场景：
+        <select id="train-scene">
+          <option value="all">全部</option>
+          <option value="PVE">PVE 推图</option>
+          <option value="PVP">PVP 竞技</option>
+          <option value="辅助">辅助</option>
+        </select>
+      </label>
+    </div>
+
+    <div id="train-list"></div>
+
+    <div class="section-title">📖 培养通用流程（三步走）</div>
+    <div class="grid">
+      <div class="card" style="cursor:default">
+        <div class="card-head">
+          <div class="card-name">① 精灵喂养</div>
+          <div class="card-badge badge-t2">基础</div>
+        </div>
+        <div class="card-row"><div class="card-label">道具</div><div class="card-value">可可果、无花果、魔力果</div></div>
+        <div class="card-row"><div class="card-label">效果</div><div class="card-value">升级+解锁新技能</div></div>
+        <div class="card-row"><div class="card-label">要点</div><div class="card-value">同步提升<strong>魔法等级</strong>，否则卡级</div></div>
+      </div>
+      <div class="card" style="cursor:default">
+        <div class="card-head">
+          <div class="card-name">② 精灵成长</div>
+          <div class="card-badge badge-t1">进阶</div>
+        </div>
+        <div class="card-row"><div class="card-label">道具</div><div class="card-value">魔法粉尘 + 系列灵碎</div></div>
+        <div class="card-row"><div class="card-label">效果</div><div class="card-value">每10级成长 → +1星</div></div>
+        <div class="card-row"><div class="card-label">作用</div><div class="card-value">性格增益幅度 + 个体资质</div></div>
+      </div>
+      <div class="card" style="cursor:default">
+        <div class="card-head">
+          <div class="card-name">③ 一起冒险</div>
+          <div class="card-badge badge-t2">自然</div>
+        </div>
+        <div class="card-row"><div class="card-label">方式</div><div class="card-value">大世界抓精灵 + 战斗</div></div>
+        <div class="card-row"><div class="card-label">效果</div><div class="card-value">经验累积自动升级</div></div>
+        <div class="card-row"><div class="card-label">要点</div><div class="card-value">特殊精灵（迪莫/里奥/帕尔萨斯）需专属材料</div></div>
+      </div>
+    </div>
+
+    <div class="tip" style="margin-top:20px">
+      <h4>💡 培养优先级建议</h4>
+      <p>
+        ① <strong>新手开荒期</strong>：优先 T0 核心（迪莫、独角兽、罗隐），一套能推全图<br>
+        ② <strong>中期进阶</strong>：加练翠顶夫人（辅助天花板）+ 春兔（赛季共创精灵）<br>
+        ③ <strong>后期凑队</strong>：按 PVE/PVP 不同场景养 2 套不同配招（同一精灵可通过技能石重置）<br>
+        ④ <strong>资质筛选</strong>：优先选带"了不起天分"+ 目标性格的个体，天分差的不要强行培养浪费材料
+      </p>
+    </div>
+
+    <div class="sources">
+      <h4>📚 培养数据来源</h4>
+      <ul>
+        <li>17173《洛克王国洛个明白：只需三步，让精灵养得又快又好》2026-03-29</li>
+        <li>游侠网《洛克王国世界最强六精灵完整培养方案》2026-04-01</li>
+        <li>游侠网《洛克王国世界罗隐怎么培养》2026-04-01</li>
+        <li>游民星空《洛克王国世界迪莫PVE与PVP配招推荐》2026-04-04</li>
+        <li>游民星空《洛克王国世界PVE精灵阵容推荐》2026-04-07</li>
+        <li>知乎《洛克王国世界八大顶级战力宠物全攻略》2026-03-30</li>
+        <li>百度贴吧《洛克王国世界翠顶夫人性格讨论》2026-03-30</li>
+      </ul>
+    </div>
+  </section>
+
   <!-- ========== 异色图鉴 ========== -->
   <section id="tab-shiny" class="tab-content">
 
@@ -639,6 +752,239 @@
 
 <script>
 // ==================== 数据 ====================
+
+// 精灵培养完整数据库
+const TRAINING_DATA = [
+  {
+    name: '迪莫',
+    tier: 'T0',
+    scene: 'PVE/PVP',
+    role: '双形态主C（物攻/魔攻均可）',
+    img: '🐉',
+    talent: '了不起天分优先，三项资质：精力(HP)、魔攻、速度均 25+',
+    nature: {
+      PVE: '魔攻流：胆小 / 保守（+魔攻 +速度）<br>物攻流：固执 / 开朗（+物攻 +速度）',
+      PVP: '开朗（+速度 +物攻，回合先手冰冻）'
+    },
+    effort: '252 魔攻 + 252 速度 + 4 精力（果实通过七曜圣地副本刷取，周末双倍）',
+    skillsPVE: ['折射（核心）', '水系技能（减消耗1点/次）', '普通系（+20威力+护盾）', '恶系（+30%吸血，占血脉）'],
+    skillsPVP: ['折射（核心）', '冰系（冰冻2层/次，削10%上限血）', '机械系（+30%双防，占血脉）', '草系（固定回血）'],
+    bloodline: '恶血脉（PVE）/ 无特殊（PVP冰冻流）',
+    special: '特长"勇敢"：同种群不触发抵触，反触发亲和',
+    obtain: '主线初始精灵，代币商店可换高资质迪莫',
+    notes: 'PVE追求最快启动→普通系>光系；PVP纯抗揍乌龟流，冰冻+机械双防无解'
+  },
+  {
+    name: '独角兽 / 白金独角兽',
+    tier: 'T0',
+    scene: 'PVE/PVP',
+    role: '全属性主C',
+    img: '🦄',
+    talent: '了不起天分，精力+魔攻+速度三维齐高',
+    nature: {
+      PVE: '保守（+魔攻 -物攻）',
+      PVP: '胆小（+速度 -物攻）'
+    },
+    effort: '252 魔攻 + 252 速度 + 4 HP',
+    skillsPVE: ['折射', '叶绿光束', '气泡', '虹光冲击'],
+    skillsPVP: ['折射', '虹光冲击', '气泡', '梦境（催眠控制）'],
+    bloodline: '首领血脉（核心必备，超进化）',
+    special: '多属性覆盖，应对不同阵容无压力',
+    obtain: '击败"命定独角兽"首领 → 首领蛋 → 孵化 → 首领血脉超进化',
+    notes: '捕捉时需罗隐带"鼓劲"技能石卡血捕捉，详见首领攻略'
+  },
+  {
+    name: '罗隐',
+    tier: 'T0',
+    scene: 'PVE/PVP',
+    role: '防御核心 / 前排坦克',
+    img: '🐗',
+    talent: '低门槛，三项差不多即可，<strong>无需极品天分</strong>',
+    nature: {
+      PVE: '固执（+物攻 -魔攻）',
+      PVP: '勇敢 / 固执（+物攻 -速度，回合后手反打）'
+    },
+    effort: '生命、物防、魔防全堆',
+    skillsPVE: ['鸣沙陷阱', '地刺', '贪婪', '泥浆铠甲', '暗突袭（根据场景选4个）'],
+    skillsPVP: ['回击（核心）', '暗之诅咒', '车裂', '鸣沙陷阱'],
+    bloodline: '无要求（普通血脉即可）',
+    special: '回击技能 PVP 灵魂 — 速度越低反伤越稳',
+    obtain: '野外：奥贝斯坦湖 / 乌黑巷 / 岚语峰 / 聆风塔地等多点位刷新',
+    notes: '开荒神U，获取简单、养成低成本、战力持久。捕捉独角兽必备（鼓劲+岩石爆卡血）'
+  },
+  {
+    name: '翠顶夫人',
+    tier: 'T0',
+    scene: '辅助 / PVE/PVP',
+    role: '版本最强辅助（接力/续航/强化）',
+    img: '🦢',
+    talent: '了不起天分，HP+魔攻+速度均衡',
+    nature: {
+      PVE: '大胆 / 沉着（+双防 -物攻，越肉越好）',
+      PVP: '胆小（+速度 -物攻，抢手加速接力）'
+    },
+    effort: 'PVE: HP+双防；PVP: HP+速度',
+    skillsPVE: ['强化接力', '润泽（续航）', '光合作用', '翠之芒'],
+    skillsPVP: ['强化接力', '化蝶（存疑，可选）', '润泽', '翠之芒'],
+    bloodline: '首领血脉',
+    special: '洁癖特性 — 下场后传递增益 BUFF 给下一只精灵',
+    obtain: '乖乖鹄 → 进化而来，需特定场景触发进化',
+    notes: 'PVE 通用阵容核心，配迪莫可快速启动；PVP 首只共创精灵地位稳固'
+  },
+  {
+    name: '春兔',
+    tier: 'T0',
+    scene: 'PVE/PVP',
+    role: '版本最强辅助（净化/治愈）',
+    img: '🐰',
+    talent: '了不起天分，HP+速度优先',
+    nature: {
+      PVE: '沉着（+特防 -物攻）',
+      PVP: '胆小（+速度 -物攻）'
+    },
+    effort: 'HP 252 + 速度 252 + 特防 4',
+    skillsPVE: ['强化接力', '治愈', '春之护佑', '净化'],
+    skillsPVP: ['强化接力', '净化', '治愈', '春之护佑'],
+    bloodline: '首领血脉',
+    special: '首只官民共创精灵 — 赛季最强辅助',
+    obtain: 'S1限定活动/战令',
+    notes: '推荐和翠顶夫人二选一，也可双辅组合（高阶PVP）'
+  },
+  {
+    name: '圣剑X',
+    tier: 'T0',
+    scene: 'PVE/PVP',
+    role: '攻防一体肉盾',
+    img: '⚔️',
+    talent: '低要求，基础属性好，成型快',
+    nature: {
+      PVE: '紧张（+HP +速度）',
+      PVP: '紧张（+HP +速度）'
+    },
+    effort: '生命、物防、魔防全点满（三防肉盾）',
+    skillsPVE: ['齿轮切开', '齿轮扭矩', '磁暴', '械斗'],
+    skillsPVP: ['齿轮切开', '械斗', '磁暴', '齿轮扭矩'],
+    bloodline: '首领血脉（超进化必需）',
+    special: '超进化后质变，承伤+输出一体',
+    obtain: '击败对应首领 → 首领蛋 → 孵化 → 超进化',
+    notes: '养成门槛低、成型快，不挑资质，与罗隐组合控场无解'
+  },
+  {
+    name: '圣羽翼王',
+    tier: 'T1',
+    scene: 'PVE/PVP',
+    role: '多核输出',
+    img: '🦅',
+    talent: '了不起天分，攻速双高',
+    nature: {
+      PVE: '固执（+物攻 -魔攻）',
+      PVP: '开朗（+速度 +物攻）'
+    },
+    effort: '物攻 + 速度 + HP',
+    skillsPVE: ['羽之祈祷', '风之利刃', '圣光普照', '翼守护'],
+    skillsPVP: ['羽之祈祷', '风之利刃', '翼守护', '圣光普照'],
+    bloodline: '首领血脉',
+    special: '适配多种阵容，补位灵活',
+    obtain: '首领活动产出',
+    notes: '推图后半段加入，替代罗隐位置提升输出爆发'
+  },
+  {
+    name: '燃薪虫',
+    tier: 'T1',
+    scene: 'PVE',
+    role: '火系爆发输出',
+    img: '🔥',
+    talent: '了不起天分，魔攻+速度',
+    nature: {
+      PVE: '保守（+魔攻 -物攻）',
+      PVP: '—'
+    },
+    effort: '252 魔攻 + 252 速度 + 4 HP',
+    skillsPVE: ['烈焰冲锋', '火焰喷射', '魔焰瞬击（核心大招）', '蓄力'],
+    skillsPVP: ['—'],
+    bloodline: '首领血脉',
+    special: '蓄力后魔焰瞬击爆发极强',
+    obtain: '维苏威火山 → 地心 刷新',
+    notes: '暴力输出流，PVE 刷图神U'
+  },
+  {
+    name: '帕尔萨斯',
+    tier: 'T1',
+    scene: 'PVE/PVP',
+    role: '特殊爆发核心',
+    img: '⚡',
+    talent: '了不起天分',
+    nature: {
+      PVE: '胆小（+速度 -物攻）',
+      PVP: '胆小'
+    },
+    effort: '魔攻 + 速度',
+    skillsPVE: ['雷电冲击', '磁场', '电磁陷阱', '过载'],
+    skillsPVP: ['雷电冲击', '过载', '电磁陷阱', '磁场'],
+    bloodline: '特殊材料（帕尔萨斯专属）',
+    special: '特殊触发机制，需精细操作',
+    obtain: '特殊剧情/活动',
+    notes: '操作难度高，上手门槛高，但上限爆炸'
+  },
+  {
+    name: '奇丽花',
+    tier: 'T1',
+    scene: 'PVE',
+    role: '续航辅助',
+    img: '🌸',
+    talent: '了不起天分，HP+魔攻',
+    nature: {
+      PVE: '沉着（+特防 -物攻）',
+      PVP: '—'
+    },
+    effort: 'HP 252 + 魔攻 252 + 特防 4',
+    skillsPVE: ['纤维化', '氧输送', '叶绿光束', '光能聚集'],
+    skillsPVP: ['—'],
+    bloodline: '首领血脉',
+    special: 'PVE副本续航稳定，接力强化',
+    obtain: '普通精灵，自然捕捉',
+    notes: '适合PVE开荒过渡，后期可被翠顶夫人替代'
+  },
+  {
+    name: '火神',
+    tier: 'T1',
+    scene: 'PVE',
+    role: 'BOSS 战爆发',
+    img: '🔥',
+    talent: '了不起天分',
+    nature: {
+      PVE: '保守 / 固执（按物攻/魔攻流选）',
+      PVP: '—'
+    },
+    effort: '物攻 / 魔攻 + 速度',
+    skillsPVE: ['热身', '火苗', '山火', '暗突袭'],
+    skillsPVP: ['—'],
+    bloodline: '首领血脉',
+    special: 'BOSS 战爆发强',
+    obtain: '维苏威火山系列',
+    notes: 'PVE特化输出，BOSS 秒杀利器'
+  },
+  {
+    name: '优光绒绒',
+    tier: 'T0',
+    scene: 'PVE/PVP',
+    role: '辅助+控制',
+    img: '☁️',
+    talent: '了不起天分',
+    nature: {
+      PVE: '大胆（+物防 -物攻）',
+      PVP: '胆小（+速度 -物攻）'
+    },
+    effort: 'HP + 双防',
+    skillsPVE: ['光治愈', '强化接力', '光之屏障', '光束'],
+    skillsPVP: ['光治愈', '光束', '光之屏障', '加速'],
+    bloodline: '首领血脉',
+    special: '光系顶级辅助，治疗+护盾双保障',
+    obtain: '首领或活动',
+    notes: '与翠顶夫人/春兔形成三大辅助梯队'
+  }
+];
+
 const SHINY_DATA = [
   // 常驻
   {name:'异色大耳帽兜', type:'perm', family:'幻系', loc:'星霜崖地 → 岚语峰上方', tip:'单系连抓冲80次保底'},
@@ -843,6 +1189,108 @@ document.getElementById('team-combo').innerHTML = TEAM_COMBO.map(c => `
     <div class="skill-row"><div class="skill-role">优势</div><div class="skill-list" style="background:none;border:none;padding:0;color:var(--green)">${c.strength}</div></div>
   </div>
 `).join('');
+
+// ==================== 精灵培养渲染 ====================
+function renderTraining() {
+  const q = document.getElementById('train-search').value.trim().toLowerCase();
+  const tier = document.getElementById('train-tier').value;
+  const scene = document.getElementById('train-scene').value;
+
+  const filtered = TRAINING_DATA.filter(t => {
+    if (tier !== 'all' && t.tier !== tier) return false;
+    if (scene !== 'all' && !t.scene.includes(scene) && !t.role.includes(scene)) return false;
+    if (!q) return true;
+    const haystack = (t.name + t.role + t.talent +
+      JSON.stringify(t.nature) + t.skillsPVE.join('') + t.skillsPVP.join('') +
+      t.bloodline + t.obtain + t.notes).toLowerCase();
+    return haystack.includes(q);
+  });
+
+  const list = document.getElementById('train-list');
+  if (!list) return;
+
+  if (filtered.length === 0) {
+    list.innerHTML = '<div class="empty">😢 没找到匹配精灵，换个关键词试试？</div>';
+    return;
+  }
+
+  list.innerHTML = filtered.map(t => {
+    const tierClass = t.tier === 'T0' ? 'badge-t0' : (t.tier === 'T1' ? 'badge-t1' : 'badge-t2');
+    const skillsPVE = t.skillsPVE.filter(s => s !== '—').map(s => `<span class="pill">${s}</span>`).join('') || '<span style="color:var(--text3)">无</span>';
+    const skillsPVP = t.skillsPVP.filter(s => s !== '—').map(s => `<span class="pill">${s}</span>`).join('') || '<span style="color:var(--text3)">无</span>';
+
+    return `
+      <div class="team-card" style="margin-bottom:20px">
+        <div class="team-head">
+          <div style="font-size:2rem;margin-right:8px">${t.img || '✨'}</div>
+          <div class="team-title">${t.name}</div>
+          <div class="card-badge ${tierClass}">${t.tier}</div>
+        </div>
+
+        <div class="skill-row">
+          <div class="skill-role">定位</div>
+          <div class="skill-list" style="background:none;border:none;padding:0;color:var(--text);font-weight:600">${t.role}</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-role">场景</div>
+          <div class="skill-list" style="background:none;border:none;padding:0;color:var(--accent)">${t.scene}</div>
+        </div>
+
+        <div style="margin:14px 0 8px;padding:10px 14px;background:#f5c85810;border-left:3px solid var(--gold);border-radius:0 6px 6px 0">
+          <div style="color:var(--gold);font-size:0.72rem;letter-spacing:1px;margin-bottom:4px">💎 天分资质</div>
+          <div style="font-size:0.8rem;color:var(--text)">${t.talent}</div>
+        </div>
+
+        <div style="margin:10px 0;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div style="padding:10px 14px;background:#5aa8ff10;border-left:3px solid var(--blue);border-radius:0 6px 6px 0">
+            <div style="color:var(--blue);font-size:0.72rem;letter-spacing:1px;margin-bottom:4px">🎭 性格 · PVE</div>
+            <div style="font-size:0.78rem;color:var(--text);line-height:1.6">${t.nature.PVE}</div>
+          </div>
+          <div style="padding:10px 14px;background:#ff6b6b10;border-left:3px solid var(--red);border-radius:0 6px 6px 0">
+            <div style="color:var(--red);font-size:0.72rem;letter-spacing:1px;margin-bottom:4px">🎭 性格 · PVP</div>
+            <div style="font-size:0.78rem;color:var(--text);line-height:1.6">${t.nature.PVP}</div>
+          </div>
+        </div>
+
+        <div style="margin:10px 0;padding:10px 14px;background:#5cd6a010;border-left:3px solid var(--green);border-radius:0 6px 6px 0">
+          <div style="color:var(--green);font-size:0.72rem;letter-spacing:1px;margin-bottom:4px">💪 努力值分配</div>
+          <div style="font-size:0.78rem;color:var(--text)">${t.effort}</div>
+        </div>
+
+        <div class="skill-row">
+          <div class="skill-role">PVE技能</div>
+          <div class="skill-list">${skillsPVE}</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-role">PVP技能</div>
+          <div class="skill-list">${skillsPVP}</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-role">血脉</div>
+          <div class="skill-list" style="background:none;border:none;padding:0;color:var(--pink)">${t.bloodline}</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-role">获取</div>
+          <div class="skill-list" style="background:none;border:none;padding:0;color:var(--text2)">${t.obtain}</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-role">特长</div>
+          <div class="skill-list" style="background:none;border:none;padding:0;color:var(--gold)">${t.special}</div>
+        </div>
+
+        <div style="margin-top:12px;padding:10px 14px;background:var(--bg3);border-radius:6px;border:1px dashed var(--border)">
+          <div style="color:var(--accent);font-size:0.72rem;letter-spacing:1px;margin-bottom:4px">📝 NONO 点评</div>
+          <div style="font-size:0.78rem;color:var(--text2);line-height:1.7">${t.notes}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+document.getElementById('train-search').addEventListener('input', renderTraining);
+document.getElementById('train-tier').addEventListener('change', renderTraining);
+document.getElementById('train-scene').addEventListener('change', renderTraining);
+renderTraining();
 </script>
 
 </body>
