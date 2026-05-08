@@ -382,6 +382,7 @@
 <nav class="tabs">
   <button class="tab active" data-tab="mechanism">🧠 机制说明</button>
   <button class="tab" data-tab="training">💎 精灵培养</button>
+  <button class="tab" data-tab="recipe">⚗️ 合成配方</button>
   <button class="tab" data-tab="shiny">🌈 异色图鉴</button>
   <button class="tab" data-tab="calendar">📅 大量出没日历</button>
   <button class="tab" data-tab="teams">⚔️ 阵容 & 技能</button>
@@ -629,6 +630,181 @@
     </div>
   </section>
 
+  <!-- ========== 合成配方 ========== -->
+  <section id="tab-recipe" class="tab-content">
+
+    <div class="mechanism">
+      <h3>⚗️ 炼金系统核心规则</h3>
+      <p style="color:#d5c8ff;font-size:0.82rem;line-height:1.8">
+        炼金台 = 位于魔法学院等地点 → 放入 3 种材料 → 等待冷却 → 获得产物。<br>
+        <strong style="color:var(--gold)">所有配方必须包含"催化剂"</strong>，作为炼金反应的核心。
+      </p>
+      <div class="mechanism-grid">
+        <div class="mech-item">
+          <div class="mech-label">配方类型</div>
+          <div class="mech-value">6大类</div>
+          <div class="mech-sub">球/药剂/果实/技能石/属性球/特殊</div>
+        </div>
+        <div class="mech-item">
+          <div class="mech-label">必需材料</div>
+          <div class="mech-value" style="font-size:.9rem">催化剂</div>
+          <div class="mech-sub">所有配方必加</div>
+        </div>
+        <div class="mech-item">
+          <div class="mech-label">最高性价比</div>
+          <div class="mech-value" style="font-size:.9rem">液化药剂</div>
+          <div class="mech-sub">7个/单次</div>
+        </div>
+        <div class="mech-item">
+          <div class="mech-label">核心产物</div>
+          <div class="mech-value" style="font-size:.9rem">高级咕噜球</div>
+          <div class="mech-sub">6种配方可刷</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">🔍 配方搜索 & 筛选</div>
+    <div class="search-bar">
+      <input id="recipe-search" placeholder="🔍 搜索材料名 / 产物名..." />
+      <label>产物：
+        <select id="recipe-filter">
+          <option value="all">全部</option>
+          <option value="普通咕噜球">普通咕噜球</option>
+          <option value="中级咕噜球">中级咕噜球</option>
+          <option value="高级咕噜球">高级咕噜球</option>
+          <option value="属性球">属性球</option>
+          <option value="特效HP药剂">特效HP药剂</option>
+          <option value="液化药剂">液化药剂</option>
+          <option value="小成长果实">小成长果实</option>
+          <option value="技能石">技能石</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="section-title">🏆 性价比 Top 5（优先刷这些）</div>
+    <div class="grid">
+      <div class="card" style="cursor:default;border-color:var(--gold)">
+        <div class="card-head">
+          <div class="card-name">💯 液化药剂</div>
+          <div class="card-badge badge-t0">S级</div>
+        </div>
+        <div class="card-row"><div class="card-label">配方</div><div class="card-value"><span class="pill">催化剂</span><span class="pill">花朵</span><span class="pill">火灵石</span></div></div>
+        <div class="card-row"><div class="card-label">产出</div><div class="card-value" style="color:var(--gold);font-weight:700">×7（全游戏最高）</div></div>
+        <div class="card-row"><div class="card-label">用途</div><div class="card-value">家园种植/孵化等功能</div></div>
+      </div>
+      <div class="card" style="cursor:default;border-color:var(--pink)">
+        <div class="card-head">
+          <div class="card-name">🌟 中级咕噜球</div>
+          <div class="card-badge badge-t1">A级</div>
+        </div>
+        <div class="card-row"><div class="card-label">配方</div><div class="card-value"><span class="pill">催化剂</span><span class="pill">木块</span><span class="pill">水灵石</span></div></div>
+        <div class="card-row"><div class="card-label">产出</div><div class="card-value" style="color:var(--pink);font-weight:700">×2（唯一配方）</div></div>
+        <div class="card-row"><div class="card-label">用途</div><div class="card-value">中期捕捉用球</div></div>
+      </div>
+      <div class="card" style="cursor:default;border-color:var(--blue)">
+        <div class="card-head">
+          <div class="card-name">🌿 小成长果实</div>
+          <div class="card-badge badge-t1">A级</div>
+        </div>
+        <div class="card-row"><div class="card-label">配方</div><div class="card-value"><span class="pill">催化剂</span><span class="pill">水滴</span><span class="pill">火灵石</span></div></div>
+        <div class="card-row"><div class="card-label">产出</div><div class="card-value" style="color:var(--blue);font-weight:700">×2（精灵养成必备）</div></div>
+        <div class="card-row"><div class="card-label">用途</div><div class="card-value">精灵升级用，唯一配方</div></div>
+      </div>
+      <div class="card" style="cursor:default;border-color:var(--green)">
+        <div class="card-head">
+          <div class="card-name">💉 特效HP药剂</div>
+          <div class="card-badge badge-t1">A级</div>
+        </div>
+        <div class="card-row"><div class="card-label">最佳</div><div class="card-value"><span class="pill">催化剂</span><span class="pill">魔法石</span><span class="pill">水灵石</span></div></div>
+        <div class="card-row"><div class="card-label">产出</div><div class="card-value" style="color:var(--green);font-weight:700">×2（10种配方最优）</div></div>
+        <div class="card-row"><div class="card-label">用途</div><div class="card-value">战斗回血道具</div></div>
+      </div>
+      <div class="card" style="cursor:default;border-color:var(--accent)">
+        <div class="card-head">
+          <div class="card-name">🎱 高级咕噜球</div>
+          <div class="card-badge badge-t1">A级</div>
+        </div>
+        <div class="card-row"><div class="card-label">推荐</div><div class="card-value"><span class="pill">催化剂</span><span class="pill">水滴/花朵</span><span class="pill">木灵石</span></div></div>
+        <div class="card-row"><div class="card-label">产出</div><div class="card-value" style="color:var(--accent);font-weight:700">×1（异色必备）</div></div>
+        <div class="card-row"><div class="card-label">用途</div><div class="card-value">抓异色精灵主力球</div></div>
+      </div>
+    </div>
+
+    <div class="section-title">📋 完整配方表</div>
+    <div class="table-wrap">
+      <table id="recipe-table">
+        <thead>
+          <tr>
+            <th style="width:50px">#</th>
+            <th>材料1</th>
+            <th>材料2</th>
+            <th>材料3</th>
+            <th>产物</th>
+            <th style="width:70px">数量</th>
+          </tr>
+        </thead>
+        <tbody id="recipe-tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="section-title">🎱 九颗属性球 — 定向捕捉</div>
+    <div class="tip">
+      <h4>🎯 属性球合成公式</h4>
+      <p>
+        <strong>普通咕噜球 × 1 + 对应植物材料 × 1 = 对应属性咕噜球 × 1</strong><br>
+        属性球针对不同属性精灵捕捉率显著提升，比普通球更划算！
+      </p>
+    </div>
+    <div class="grid" id="elem-ball-grid"></div>
+
+    <div class="section-title">🧪 技能石合成</div>
+    <div class="card" style="cursor:default">
+      <div class="card-head"><div class="card-name">⚡ 技能石制作流程</div></div>
+      <div class="card-row">
+        <div class="card-label">前置</div>
+        <div class="card-value">捕捉对应精灵 → 战斗使用2次该技能 → 解锁配方</div>
+      </div>
+      <div class="card-row">
+        <div class="card-label">地点</div>
+        <div class="card-value">魔法学院炼金釜 → 进入"技能炼金"</div>
+      </div>
+      <div class="card-row">
+        <div class="card-label">普通技能</div>
+        <div class="card-value"><span class="pill">魔法石 ×1</span><span class="pill">属性灵石 ×3</span></div>
+      </div>
+      <div class="card-row">
+        <div class="card-label">稀有技能</div>
+        <div class="card-value"><span class="pill">魔法石 ×1</span><span class="pill">属性灵石 ×3</span><span class="pill">精元结晶 ×1</span></div>
+      </div>
+      <div class="card-row">
+        <div class="card-label">备注</div>
+        <div class="card-value" style="color:var(--text2)">放入材料 → 冷却结束 → 领取完成</div>
+      </div>
+    </div>
+
+    <div class="section-title">⚠️ 无法家园种植的特殊材料</div>
+    <div class="warn">
+      <h4>🚫 这些材料只能野外采集，别傻等种植</h4>
+      <p>
+        <strong>植物类</strong>：凤眼莲、风卷草、藻羽花、石耳<br>
+        <strong>海洋类</strong>：杏黄贝、杨红珊瑚、海珊瑚<br>
+        <strong>特殊类</strong>：幽幽鬼火、骨片<br>
+        日常探索务必随手囤积，过路不要空手！
+      </p>
+    </div>
+
+    <div class="sources">
+      <h4>📚 配方数据来源</h4>
+      <ul>
+        <li>ABC游戏网《洛克王国世界炼金配方大全一览》2026-04-11</li>
+        <li>3DM网游《洛克王国世界炼金配方大全》</li>
+        <li>电玩帮《洛克王国世界九颗属性球合成材料一览》2026-04-20</li>
+        <li>游侠网《洛克王国世界技能石合成方式》2026-04-03</li>
+        <li>17173《洛克王国世界20个咕噜球获取指南》2026-03-23</li>
+      </ul>
+    </div>
+  </section>
+
   <!-- ========== 异色图鉴 ========== -->
   <section id="tab-shiny" class="tab-content">
 
@@ -752,6 +928,74 @@
 
 <script>
 // ==================== 数据 ====================
+
+// 合成配方数据库（所有炼金配方）
+const RECIPE_DATA = [
+  // 普通咕噜球（魔法石系列）
+  {mats:['催化剂','叶子','魔法石'], product:'普通咕噜球', count:1, tag:'普通咕噜球'},
+  {mats:['催化剂','羽毛','魔法石'], product:'普通咕噜球', count:1, tag:'普通咕噜球'},
+  {mats:['催化剂','土灵石','魔法石'], product:'普通咕噜球', count:1, tag:'普通咕噜球'},
+  // 普通咕噜球 + HP药剂
+  {mats:['催化剂','木块','魔法石'], product:'普通咕噜球 + 特效HP药剂', count:'1+1', tag:'特效HP药剂'},
+  {mats:['催化剂','火灵石','魔法石'], product:'普通咕噜球 + 特效HP药剂', count:'1+1', tag:'特效HP药剂'},
+  {mats:['催化剂','木灵石','魔法石'], product:'普通咕噜球 + 特效HP药剂', count:'1+1', tag:'特效HP药剂'},
+  {mats:['催化剂','光灵石','魔法石'], product:'普通咕噜球 + 特效HP药剂', count:'1+1', tag:'特效HP药剂'},
+  {mats:['催化剂','花朵','魔法石'], product:'普通咕噜球 + 特效HP药剂', count:'1+1', tag:'特效HP药剂'},
+  {mats:['催化剂','水滴','魔法石'], product:'普通咕噜球 + 特效HP药剂', count:'1+1', tag:'特效HP药剂'},
+  // 水灵石系列（产出2个普通球）
+  {mats:['催化剂','火灵石','水灵石'], product:'普通咕噜球', count:2, tag:'普通咕噜球'},
+  {mats:['催化剂','木灵石','水灵石'], product:'普通咕噜球', count:2, tag:'普通咕噜球'},
+  {mats:['催化剂','光灵石','水灵石'], product:'普通咕噜球', count:2, tag:'普通咕噜球'},
+  // 中级咕噜球（唯一）
+  {mats:['催化剂','木块','水灵石'], product:'中级咕噜球', count:2, tag:'中级咕噜球', highlight:true},
+  // HP药剂（水灵石+魔法石产出2）
+  {mats:['催化剂','魔法石','水灵石'], product:'特效HP药剂', count:2, tag:'特效HP药剂', highlight:true},
+  // 水滴系列
+  {mats:['催化剂','水滴','水灵石'], product:'特效HP药剂', count:2, tag:'特效HP药剂'},
+  {mats:['催化剂','水滴','花朵'], product:'特效HP药剂', count:2, tag:'特效HP药剂'},
+  {mats:['催化剂','水滴','光灵石'], product:'特效HP药剂', count:2, tag:'特效HP药剂'},
+  {mats:['催化剂','水滴','羽毛'], product:'普通咕噜球', count:2, tag:'普通咕噜球'},
+  {mats:['催化剂','水滴','土灵石'], product:'普通咕噜球', count:2, tag:'普通咕噜球'},
+  {mats:['催化剂','水滴','叶子'], product:'普通咕噜球', count:2, tag:'普通咕噜球'},
+  // 高级咕噜球配方
+  {mats:['催化剂','水滴','木灵石'], product:'高级咕噜球', count:1, tag:'高级咕噜球', highlight:true},
+  {mats:['催化剂','水滴','木块'], product:'高级咕噜球', count:1, tag:'高级咕噜球', highlight:true},
+  // 小成长果实（唯一）
+  {mats:['催化剂','水滴','火灵石'], product:'小成长果实', count:2, tag:'小成长果实', highlight:true},
+  // 花朵系列
+  {mats:['催化剂','花朵','火灵石'], product:'液化药剂', count:7, tag:'液化药剂', highlight:true},
+  {mats:['催化剂','花朵','光灵石'], product:'高级咕噜球', count:1, tag:'高级咕噜球'},
+  {mats:['催化剂','花朵','木灵石'], product:'高级咕噜球', count:1, tag:'高级咕噜球'},
+  {mats:['催化剂','花朵','土灵石'], product:'普通咕噜球', count:2, tag:'普通咕噜球'},
+  {mats:['催化剂','花朵','羽毛'], product:'普通咕噜球', count:2, tag:'普通咕噜球'},
+  {mats:['催化剂','花朵','叶子'], product:'普通咕噜球', count:2, tag:'普通咕噜球'},
+  // 火灵石系列
+  {mats:['催化剂','火灵石','木灵石'], product:'高级咕噜球', count:1, tag:'高级咕噜球'},
+  {mats:['催化剂','火灵石','羽毛'], product:'普通咕噜球', count:2, tag:'普通咕噜球'},
+  {mats:['催化剂','火灵石','叶子'], product:'普通咕噜球', count:2, tag:'普通咕噜球'},
+  {mats:['催化剂','火灵石','土灵石'], product:'普通咕噜球', count:2, tag:'普通咕噜球'},
+  // 光灵石系列
+  {mats:['催化剂','光灵石','木灵石'], product:'高级咕噜球', count:1, tag:'高级咕噜球'},
+  {mats:['催化剂','光灵石','羽毛'], product:'普通咕噜球', count:2, tag:'普通咕噜球'},
+  {mats:['催化剂','光灵石','叶子'], product:'普通咕噜球', count:2, tag:'普通咕噜球'},
+  {mats:['催化剂','光灵石','土灵石'], product:'普通咕噜球', count:2, tag:'普通咕噜球'},
+  // 技能石
+  {mats:['魔法石','属性灵石×3','-'], product:'普通技能石', count:1, tag:'技能石', note:'需先捕捉精灵+战斗使用2次技能解锁配方'},
+  {mats:['魔法石','属性灵石×3','精元结晶'], product:'稀有技能石', count:1, tag:'技能石', note:'稀有技能专属配方'}
+];
+
+// 九颗属性球
+const ELEM_BALL = [
+  {element:'火系', mat:'火舌草', icon:'🔥', color:'#ff6b6b'},
+  {element:'水系', mat:'蓝露花', icon:'💧', color:'#5aa8ff'},
+  {element:'草系', mat:'翠叶苗', icon:'🌿', color:'#5cd6a0'},
+  {element:'电系', mat:'雷鸣草', icon:'⚡', color:'#f5c858'},
+  {element:'冰系', mat:'雪绒花', icon:'❄️', color:'#b0e5ff'},
+  {element:'幽系', mat:'夜影草', icon:'👻', color:'#8a5cf0'},
+  {element:'幻系', mat:'梦境花', icon:'✨', color:'#ff7ab6'},
+  {element:'光系', mat:'辉光草', icon:'🌟', color:'#fff4a8'},
+  {element:'恶系', mat:'毒荆棘', icon:'🌑', color:'#6b5671'}
+];
 
 // 精灵培养完整数据库
 const TRAINING_DATA = [
@@ -1291,6 +1535,71 @@ document.getElementById('train-search').addEventListener('input', renderTraining
 document.getElementById('train-tier').addEventListener('change', renderTraining);
 document.getElementById('train-scene').addEventListener('change', renderTraining);
 renderTraining();
+
+// ==================== 配方渲染 ====================
+function renderRecipes() {
+  const q = document.getElementById('recipe-search').value.trim().toLowerCase();
+  const filter = document.getElementById('recipe-filter').value;
+  const tbody = document.getElementById('recipe-tbody');
+  if (!tbody) return;
+
+  const filtered = RECIPE_DATA.filter(r => {
+    if (filter !== 'all' && r.tag !== filter) return false;
+    if (!q) return true;
+    return (r.mats.join('') + r.product + (r.note || '')).toLowerCase().includes(q);
+  });
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" class="empty">😢 没找到匹配配方</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtered.map((r, i) => {
+    const highlight = r.highlight ? 'background:#f5c85811;' : '';
+    return `
+      <tr style="${highlight}">
+        <td style="color:var(--text3)">${i+1}</td>
+        <td><span class="pill">${r.mats[0]}</span></td>
+        <td><span class="pill">${r.mats[1]}</span></td>
+        <td>${r.mats[2] === '-' ? '<span style="color:var(--text3)">—</span>' : `<span class="pill">${r.mats[2]}</span>`}</td>
+        <td style="font-weight:700;color:${r.highlight ? 'var(--gold)' : 'var(--text)'}">
+          ${r.product}${r.note ? `<br><span style="font-size:0.7rem;color:var(--text2);font-weight:normal">${r.note}</span>` : ''}
+        </td>
+        <td style="color:${r.highlight ? 'var(--gold)' : 'var(--accent)'};font-weight:700;text-align:center">×${r.count}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+// 九颗属性球渲染
+function renderElemBalls() {
+  const div = document.getElementById('elem-ball-grid');
+  if (!div) return;
+  div.innerHTML = ELEM_BALL.map(e => `
+    <div class="card" style="cursor:default;border-color:${e.color}44">
+      <div class="card-head">
+        <div class="card-name" style="color:${e.color}">${e.icon} ${e.element}属性球</div>
+      </div>
+      <div class="card-row">
+        <div class="card-label">配方</div>
+        <div class="card-value"><span class="pill">普通咕噜球 ×1</span><span class="pill" style="color:${e.color};border-color:${e.color}88">${e.mat} ×1</span></div>
+      </div>
+      <div class="card-row">
+        <div class="card-label">产出</div>
+        <div class="card-value" style="color:${e.color};font-weight:700">${e.element}属性球 ×1</div>
+      </div>
+      <div class="card-row">
+        <div class="card-label">用途</div>
+        <div class="card-value" style="color:var(--text2);font-size:0.76rem">针对${e.element}精灵捕捉率大幅提升</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+document.getElementById('recipe-search').addEventListener('input', renderRecipes);
+document.getElementById('recipe-filter').addEventListener('change', renderRecipes);
+renderRecipes();
+renderElemBalls();
 </script>
 
 </body>
