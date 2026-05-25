@@ -383,10 +383,12 @@
   <button class="tab active" data-tab="mechanism">🧠 机制说明</button>
   <button class="tab" data-tab="training">💎 精灵培养</button>
   <button class="tab" data-tab="recipe">⚗️ 合成配方</button>
+  <button class="tab" data-tab="skillstone">🪄 技能石获取</button>
   <button class="tab" data-tab="shiny">🌈 异色图鉴</button>
   <button class="tab" data-tab="calendar">📅 大量出没日历</button>
   <button class="tab" data-tab="teams">⚔️ 阵容 & 技能</button>
   <button class="tab" data-tab="antiscam">🛡️ 识破毒攻略</button>
+  <button class="tab" data-tab="ai">🤖 AI 问答</button>
 </nav>
 
 <main>
@@ -805,6 +807,197 @@
     </div>
   </section>
 
+  <!-- ========== 技能石获取 ========== -->
+  <section id="tab-skillstone" class="tab-content">
+
+    <div class="mechanism">
+      <h3>🪄 技能石获取核心机制</h3>
+      <p style="color:#d5c8ff;font-size:0.82rem;line-height:1.8">
+        技能石是给精灵学习<strong>额外技能</strong>的关键道具。获取链路：<br>
+        ① <strong style="color:var(--gold)">捕捉对应精灵</strong>（必须图鉴有该精灵）→
+        ② <strong style="color:var(--gold)">编队带它战斗</strong> →
+        ③ <strong style="color:var(--gold)">使用目标技能N次</strong>（次数因技能而异）→
+        ④ <strong style="color:var(--gold)">图鉴课题完成</strong> → 直接领取技能石+解锁炼金配方
+      </p>
+      <div class="mechanism-grid">
+        <div class="mech-item">
+          <div class="mech-label">主要途径</div>
+          <div class="mech-value">5种</div>
+          <div class="mech-sub">炼金/课题/商店/掉落/活动</div>
+        </div>
+        <div class="mech-item">
+          <div class="mech-label">普通技能</div>
+          <div class="mech-value" style="font-size:.9rem">魔法石+灵石×3</div>
+          <div class="mech-sub">炼金合成</div>
+        </div>
+        <div class="mech-item">
+          <div class="mech-label">稀有技能</div>
+          <div class="mech-value" style="font-size:.85rem">精元结晶+材料</div>
+          <div class="mech-sub">需打BOSS拿结晶</div>
+        </div>
+        <div class="mech-item">
+          <div class="mech-label">使用次数</div>
+          <div class="mech-value">2-10次</div>
+          <div class="mech-sub">普通2次/稀有8-10次</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <h4>💡 最高效解锁流程（实测）</h4>
+      <p>
+        ① 图鉴查看 → 找到目标技能石（左下角带"配方"标识）<br>
+        ② 点开课题 → 看清"哪只精灵 × 释放哪个技能 × 释放几次"<br>
+        ③ 抓那只精灵编入队伍 → 进野外低级图战斗<br>
+        ④ 战斗中<strong>只用目标技能</strong>对小怪打出指定次数 → 立刻逃跑/撤退<br>
+        ⑤ 回图鉴 → 课题"已完成"→ 直接领取技能石和配方
+      </p>
+    </div>
+
+    <div class="section-title">📋 热门技能石获取一览（精灵 × 技能 × 使用次数）</div>
+    <div class="search-bar">
+      <input id="ss-search" placeholder="🔍 搜索技能名 / 精灵名..." />
+      <label>分类：
+        <select id="ss-filter">
+          <option value="all">全部</option>
+          <option value="核心">核心T0技能</option>
+          <option value="普通">普通技能</option>
+          <option value="稀有">稀有技能</option>
+        </select>
+      </label>
+    </div>
+    <div class="table-wrap">
+      <table id="ss-table">
+        <thead>
+          <tr>
+            <th style="width:28px">#</th>
+            <th>精灵</th>
+            <th>技能石</th>
+            <th>使用次数</th>
+            <th>稀有度</th>
+            <th>用途</th>
+          </tr>
+        </thead>
+        <tbody id="ss-tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="section-title">🎯 5种获取途径优先级</div>
+    <div class="grid">
+      <div class="card" style="cursor:default;border-color:var(--gold)">
+        <div class="card-head">
+          <div class="card-name">① 图鉴课题（最划算）</div>
+          <div class="card-badge badge-t0">★★★★★</div>
+        </div>
+        <div class="card-row"><div class="card-label">特点</div><div class="card-value">免费 + 配方双解锁</div></div>
+        <div class="card-row"><div class="card-label">适合</div><div class="card-value">所有玩家，主路径</div></div>
+        <div class="card-row"><div class="card-label">操作</div><div class="card-value">编队精灵+使用技能N次→图鉴领取</div></div>
+      </div>
+      <div class="card" style="cursor:default">
+        <div class="card-head">
+          <div class="card-name">② 炼金合成（最稳定）</div>
+          <div class="card-badge badge-t1">★★★★</div>
+        </div>
+        <div class="card-row"><div class="card-label">配方</div><div class="card-value"><span class="pill">魔法石</span><span class="pill">3属性灵石</span></div></div>
+        <div class="card-row"><div class="card-label">稀有</div><div class="card-value">+精元结晶</div></div>
+        <div class="card-row"><div class="card-label">地点</div><div class="card-value">魔法学院/主城广场/商店街炼金釜</div></div>
+      </div>
+      <div class="card" style="cursor:default">
+        <div class="card-head">
+          <div class="card-name">③ 商店兑换（应急）</div>
+          <div class="card-badge badge-t1">★★★</div>
+        </div>
+        <div class="card-row"><div class="card-label">PVP商店</div><div class="card-value">山姆森（魔法学院广场）→ 制胜点</div></div>
+        <div class="card-row"><div class="card-label">安妮商店</div><div class="card-value">商店街，随机刷新</div></div>
+        <div class="card-row"><div class="card-label">万事通</div><div class="card-value">主城广场，每日刷新</div></div>
+      </div>
+      <div class="card" style="cursor:default">
+        <div class="card-head">
+          <div class="card-name">④ 野外/副本掉落</div>
+          <div class="card-badge badge-t2">★★★</div>
+        </div>
+        <div class="card-row"><div class="card-label">野外</div><div class="card-value">30级以上精英怪概率掉</div></div>
+        <div class="card-row"><div class="card-label">NPC</div><div class="card-value">邮差坎特→幽灵/武斗系</div></div>
+        <div class="card-row"><div class="card-label">副本</div><div class="card-value">勇者大挑战/深渊秘境/BOSS</div></div>
+      </div>
+      <div class="card" style="cursor:default">
+        <div class="card-head">
+          <div class="card-name">⑤ 活动/任务（白嫖）</div>
+          <div class="card-badge badge-t2">★★</div>
+        </div>
+        <div class="card-row"><div class="card-label">主线</div><div class="card-value">章节奖励直接送</div></div>
+        <div class="card-row"><div class="card-label">日常</div><div class="card-value">勇者训练馆每日/每周</div></div>
+        <div class="card-row"><div class="card-label">活动</div><div class="card-value">限时活动+成就奖励</div></div>
+      </div>
+      <div class="card" style="cursor:default;border-color:var(--red)">
+        <div class="card-head">
+          <div class="card-name">❌ 卡bug获取</div>
+          <div class="card-badge badge-t0" style="border-color:var(--red);color:var(--red);background:#dc143c22">毒攻略</div>
+        </div>
+        <div class="card-row"><div class="card-value" style="color:#f5a8bd">所有"卡bug刷技能石"教程都已被官方修复，封号风险高，不要尝试！</div></div>
+      </div>
+    </div>
+
+    <div class="warn">
+      <h4>⚠ 高频踩坑</h4>
+      <p>
+        ① <strong>编队但不出战不算次数</strong> — 必须在战斗回合内主动选择该技能释放<br>
+        ② <strong>对手秒死时算半次</strong> — 建议打中级野怪，能撑过一回合<br>
+        ③ <strong>同一精灵不同技能要分别完成</strong> — 一只精灵可能要打10+次战斗才能解锁所有专属技能石<br>
+        ④ <strong>稀有技能石课题次数大幅增加</strong> — 折射、强化接力等核心技能需 8-10 次
+      </p>
+    </div>
+
+    <div class="sources">
+      <h4>📚 技能石数据来源</h4>
+      <ul>
+        <li>BiliBili WIKI《技能石图鉴》（300+技能石完整列表）2026-04-02</li>
+        <li>百度知道《洛克王国世界技能石配方》（深空游戏官方）2026-04-05</li>
+        <li>玩一玩wywyx.com《洛克王国世界技能石获取方法》2026-04-22</li>
+        <li>游侠网《洛克王国世界技能石合成方式》2026-04-03</li>
+        <li>3DM网游《洛克王国世界技能石获得方法》2026-03-31</li>
+        <li>抖音/233乐园 多源交叉验证</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== AI 问答 ========== -->
+  <section id="tab-ai" class="tab-content">
+
+    <div class="mechanism">
+      <h3>🤖 NONO AI 助手</h3>
+      <p style="color:#d5c8ff;font-size:0.82rem;line-height:1.8">
+        基于本站全部攻略数据的智能问答助手。直接输入你的问题，比如：<br>
+        • <em>"迪莫PVP带什么性格？"</em><br>
+        • <em>"3×3刷异色怎么操作？"</em><br>
+        • <em>"折射技能石怎么获取？"</em><br>
+        • <em>"高级咕噜球配方是啥？"</em>
+      </p>
+    </div>
+
+    <div id="ai-chat" style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px;min-height:420px;max-height:520px;overflow-y:auto;margin-bottom:14px">
+      <div class="ai-msg ai-bot">
+        <strong style="color:var(--accent)">🤖 NONO：</strong>
+        你好！我是基于本站攻略训练的本地知识助手。问我任何关于洛克王国世界的问题：异色抓捕、精灵培养、技能石、合成配方……<br>
+        <span style="color:var(--text2);font-size:0.78rem">💡 输入 <code>帮助</code> 查看常见问题示例</span>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:8px">
+      <input id="ai-input" placeholder="输入你的问题，回车发送..." style="flex:1;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:12px 14px;border-radius:8px;font-size:0.88rem;font-family:inherit"/>
+      <button id="ai-send" style="background:var(--accent);color:#fff;border:none;padding:0 22px;border-radius:8px;cursor:pointer;font-size:0.88rem;font-weight:700;font-family:inherit">发送</button>
+    </div>
+
+    <div class="tip" style="margin-top:14px">
+      <h4>💡 提示：本地知识库模式</h4>
+      <p>
+        当前为<strong>纯前端本地知识库匹配</strong>模式（无需联网，隐私安全）。
+        AI 会从本站所有数据中智能匹配关键词。<br>
+        如果某个问题没匹配到答案，可以试试换个关键词或更具体的问法。
+      </p>
+    </div>
+  </section>
+
   <!-- ========== 异色图鉴 ========== -->
   <section id="tab-shiny" class="tab-content">
 
@@ -928,6 +1121,68 @@
 
 <script>
 // ==================== 数据 ====================
+
+// 技能石数据库 (精灵 / 技能石 / 使用次数 / 稀有度 / 用途)
+const SKILL_STONE_DATA = [
+  // 核心T0技能石（赛季必备）
+  {role:'伊芙(Eve)/独角兽', stone:'折射', uses:8, tier:'核心', use:'魔攻型C必备 - 反射敌方法术', notes:'课题需在战斗中释放折射8次'},
+  {role:'翠顶夫人/乖乖鹄', stone:'强化接力', uses:6, tier:'核心', use:'辅助核心 - 下场后传递增益', notes:'PVP/PVE双修必备'},
+  {role:'翠顶夫人/奇丽花', stone:'润泽', uses:8, tier:'核心', use:'快速启动C位（迪莫起手）', notes:'每回合回血+加速'},
+  {role:'翠顶夫人', stone:'光合作用', uses:6, tier:'核心', use:'PVE续航辅助', notes:'晴天下回血翻倍'},
+  {role:'罗隐/砂猪', stone:'鸣沙陷阱', uses:8, tier:'核心', use:'PVP第一控制 - 减速+石化', notes:'罗隐核心技能'},
+  {role:'罗隐/犰狳', stone:'地刺', uses:6, tier:'核心', use:'破甲+持续伤害', notes:'与鸣沙陷阱形成连击'},
+  {role:'迪莫', stone:'天洪', uses:10, tier:'核心', use:'迪莫主输出技能 - 大招', notes:'稀有技能石，需打BOSS拿精元结晶'},
+  {role:'迪莫/各类恶系', stone:'恶能量', uses:8, tier:'核心', use:'恶系主力输出 + 30%吸血', notes:'迪莫PVE续航流核心'},
+  {role:'迪莫/光系', stone:'闪光冲击', uses:8, tier:'核心', use:'光系AOE主力技能', notes:'迪莫的主属性输出'},
+  {role:'独角兽', stone:'虹光冲击', uses:10, tier:'核心', use:'独角兽专属大招', notes:'稀有，多属性穿透'},
+  {role:'圣剑X/机械系', stone:'械斗', uses:8, tier:'核心', use:'机械系防反技能', notes:'攻防一体核心'},
+  {role:'圣剑X', stone:'齿轮切开', uses:6, tier:'核心', use:'圣剑X爆发输出', notes:''},
+  {role:'圣剑X', stone:'轴承支撑', uses:6, tier:'核心', use:'圣剑X防御加成', notes:''},
+
+  // 普通技能石（推图通用）
+  {role:'各种水系精灵', stone:'气泡', uses:4, tier:'普通', use:'水系基础攻击', notes:'独角兽必带'},
+  {role:'深蓝鲸', stone:'水环', uses:4, tier:'普通', use:'水系群体伤害', notes:'课题示例：抓鲸鱼用水环4次'},
+  {role:'各种火系精灵', stone:'火苗', uses:3, tier:'普通', use:'火系基础', notes:''},
+  {role:'各种火系', stone:'热身', uses:2, tier:'普通', use:'火系增益（火神核心）', notes:''},
+  {role:'火神/魔焰精灵', stone:'山火', uses:6, tier:'普通', use:'火系群伤AOE', notes:''},
+  {role:'燃薪虫', stone:'烈焰冲锋', uses:6, tier:'普通', use:'火系单体冲锋', notes:''},
+  {role:'燃薪虫/凤凰', stone:'魔焰瞬击', uses:8, tier:'稀有', use:'火系蓄力大招', notes:'燃薪虫核心输出'},
+  {role:'草系精灵', stone:'叶绿光束', uses:6, tier:'普通', use:'草系主力输出', notes:'独角兽/奇丽花'},
+  {role:'奇丽花', stone:'纤维化', uses:4, tier:'普通', use:'草系防御提升', notes:''},
+  {role:'奇丽花', stone:'氧输送', uses:6, tier:'普通', use:'群体回血+加速', notes:''},
+  {role:'奇丽花', stone:'光能聚集', uses:6, tier:'普通', use:'魔攻+暴击大幅提升', notes:''},
+  {role:'各幽系精灵', stone:'背袭', uses:4, tier:'普通', use:'幽系突袭', notes:''},
+  {role:'达米安', stone:'恶突袭', uses:6, tier:'普通', use:'恶系暗杀', notes:''},
+  {role:'帕尔萨斯/电系', stone:'雷电冲击', uses:6, tier:'普通', use:'电系单体爆发', notes:''},
+  {role:'帕尔萨斯', stone:'过载', uses:6, tier:'稀有', use:'电系增伤', notes:''},
+  {role:'冰系精灵', stone:'冰冻', uses:6, tier:'普通', use:'PVP冰冻削血上限', notes:'迪莫冰冻流必备'},
+  {role:'雪豆丁/月牙雪熊', stone:'冰晶坠', uses:4, tier:'普通', use:'冰系基础攻击', notes:''},
+  {role:'光系精灵', stone:'光能聚集', uses:6, tier:'普通', use:'光系魔攻提升', notes:''},
+  {role:'恶系精灵', stone:'诅咒', uses:6, tier:'普通', use:'幽系减益', notes:''},
+
+  // 稀有技能石（高难活动产出）
+  {role:'圣羽翼王', stone:'羽之祈祷', uses:8, tier:'稀有', use:'圣羽核心辅助', notes:'飞翔系大招'},
+  {role:'圣羽翼王', stone:'风之利刃', uses:8, tier:'稀有', use:'圣羽爆发输出', notes:''},
+  {role:'圣羽翼王', stone:'圣光普照', uses:8, tier:'稀有', use:'光系群伤大招', notes:''},
+  {role:'春兔', stone:'春之护佑', uses:8, tier:'稀有', use:'春兔专属大招辅助', notes:'共创精灵'},
+  {role:'春兔', stone:'治愈', uses:6, tier:'稀有', use:'群体回血', notes:''},
+  {role:'春兔', stone:'净化', uses:6, tier:'稀有', use:'清除负面状态', notes:''},
+  {role:'喵呜', stone:'酸浓度调整', uses:6, tier:'稀有', use:'喵呜专属课题', notes:'攻略原文示例'},
+  {role:'各物攻C', stone:'蓄势待发', uses:6, tier:'稀有', use:'攻击/物攻提升+暴击', notes:''},
+  {role:'各魔攻C', stone:'蓄能轰击', uses:6, tier:'稀有', use:'魔攻爆发输出', notes:''},
+  {role:'通用', stone:'幻象', uses:8, tier:'稀有', use:'闪避BUFF', notes:''},
+  {role:'通用', stone:'反击', uses:8, tier:'稀有', use:'罗隐PVP灵魂技能', notes:''},
+  {role:'通用', stone:'后发制人', uses:10, tier:'稀有', use:'罗隐速度低反伤高', notes:''},
+  {role:'通用', stone:'先发制人', uses:8, tier:'稀有', use:'高速C位先手', notes:''},
+
+  // 普通输出技能（抓什么精灵都能用的基础款）
+  {role:'幻系精灵', stone:'梦境', uses:4, tier:'普通', use:'催眠控制', notes:''},
+  {role:'力量系精灵', stone:'拳击', uses:3, tier:'普通', use:'物理基础', notes:''},
+  {role:'各精灵', stone:'瞪眼', uses:2, tier:'普通', use:'减命中Debuff', notes:''},
+  {role:'各精灵', stone:'撒娇', uses:2, tier:'普通', use:'幻系控制', notes:''},
+  {role:'各精灵', stone:'休息回复', uses:3, tier:'普通', use:'回血+睡眠', notes:''},
+  {role:'各精灵', stone:'打鼾', uses:3, tier:'普通', use:'睡眠中攻击', notes:''}
+];
 
 // 合成配方数据库（所有炼金配方）
 const RECIPE_DATA = [
@@ -1600,6 +1855,137 @@ document.getElementById('recipe-search').addEventListener('input', renderRecipes
 document.getElementById('recipe-filter').addEventListener('change', renderRecipes);
 renderRecipes();
 renderElemBalls();
+
+// ==================== 技能石渲染 ====================
+function renderSkillStones() {
+  const q = document.getElementById('ss-search').value.trim().toLowerCase();
+  const filter = document.getElementById('ss-filter').value;
+  const tbody = document.getElementById('ss-tbody');
+  if (!tbody) return;
+
+  const filtered = SKILL_STONE_DATA.filter(s => {
+    if (filter !== 'all' && s.tier !== filter) return false;
+    if (!q) return true;
+    return (s.role + s.stone + s.use + (s.notes||'')).toLowerCase().includes(q);
+  });
+
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="empty">未找到匹配技能石</td></tr>';
+    return;
+  }
+
+  const tierBadge = (t) => {
+    if (t === '核心') return '<span class="card-badge badge-t0">核心</span>';
+    if (t === '稀有') return '<span class="card-badge badge-t1">稀有</span>';
+    return '<span class="card-badge badge-t2">普通</span>';
+  };
+
+  tbody.innerHTML = filtered.map((s, i) => `
+    <tr ${s.tier === '核心' ? 'style="background:#dc143c08"' : ''}>
+      <td style="color:var(--text3)">${i+1}</td>
+      <td style="font-weight:700">${s.role}</td>
+      <td style="color:${s.tier === '核心' ? 'var(--gold)' : 'var(--accent)'}">🪄 ${s.stone}</td>
+      <td style="text-align:center;color:var(--green);font-weight:700">${s.uses} 次</td>
+      <td>${tierBadge(s.tier)}</td>
+      <td style="color:var(--text2);font-size:0.78rem">${s.use}${s.notes ? '<br><span style="color:var(--text3);font-size:0.7rem">'+s.notes+'</span>' : ''}</td>
+    </tr>
+  `).join('');
+}
+
+document.getElementById('ss-search').addEventListener('input', renderSkillStones);
+document.getElementById('ss-filter').addEventListener('change', renderSkillStones);
+renderSkillStones();
+
+// ==================== AI 问答 ====================
+// 知识库（全站精华问答）
+const AI_KNOWLEDGE = [
+  // 异色相关
+  {keys:['异色','机制','概率','保底','怎么刷异色','异色规则'], answer:'<strong>异色机制</strong>：连续捕捉同家族精灵 → 触发噩梦枷锁（污染怪）→ 打破护盾 → 概率出异色。<br>📊 <strong>1.8%基础概率</strong>，<strong>80次破盾必出（保底）</strong>。<br>⚠️ 保底不清零、不重置，跨家族才重新计算。详情见"机制说明"Tab。'},
+  {keys:['3x3','三三','3×3','刷异色','3×3怎么用','3×3速刷'], answer:'<strong>3×3速刷法</strong>：庇护所放A果实+B果实，严格抓3只A→3只B循环。专用赛季限定异色。<br>🎯 <strong>S1最优搭配</strong>：<br>• 月牙雪熊：冰(雪豆丁)+幻(怖哭菇)<br>• 燃薪虫：火(红绒十字)+草(格兰球)<br>• 空空颅：幽(幽冥眼)+幻(梦悠悠)'},
+  {keys:['双标','三标','污染','bug','显示bug'], answer:'<strong>⚠️ 毒攻略警告</strong>：双污染/三污染图标是显示BUG，与异色刷新率<strong>毫无关联</strong>，官方已确认。<br>不要蹲守这种"异象"，老老实实刷80次保底才是正道。'},
+
+  // 精灵培养
+  {keys:['迪莫','dimo'], answer:'<strong>迪莫培养</strong>：T0双形态主C<br>• 性格：PVE保守/胆小（魔攻流）/ PVP开朗（速度）<br>• 努力值：252魔攻+252速度+4精力<br>• 技能：折射(必带)+天洪+恶能量+闪光冲击<br>• 血脉：恶血脉（PVE续航）'},
+  {keys:['独角兽','白金独角兽'], answer:'<strong>独角兽培养</strong>：T0全属性主C<br>• 性格：保守(PVE)/胆小(PVP)<br>• 技能：折射+叶绿光束+气泡+虹光冲击<br>• 血脉：首领血脉（必备超进化）<br>• 抓捕：罗隐带"鼓劲"卡血'},
+  {keys:['罗隐'], answer:'<strong>罗隐培养</strong>：T0防御核心<br>• 性格：固执（无需强求极品）<br>• 技能：鸣沙陷阱+地刺+贪婪+泥浆铠甲+暗突袭(选4)<br>• PVP神技：回击（速度越低反伤越高，配勇敢性格）<br>• 获取：奥贝斯坦湖/乌黑巷等多点位'},
+  {keys:['翠顶夫人','翠顶'], answer:'<strong>翠顶夫人</strong>：T0版本最强辅助<br>• 性格：大胆/沉着(PVE) | 胆小(PVP)<br>• 技能：强化接力+润泽+光合作用+翠之芒<br>• 特性：洁癖 - 下场后传递增益<br>• 来源：乖乖鹄进化'},
+  {keys:['春兔'], answer:'<strong>春兔</strong>：T0辅助 + 共创精灵<br>• 性格：胆小（速度优先）<br>• 技能：强化接力+治愈+净化+春之护佑<br>• 来源：S1限定活动/战令<br>• 推荐与翠顶夫人二选一'},
+  {keys:['圣剑X','圣剑x'], answer:'<strong>圣剑X</strong>：T0攻防一体肉盾<br>• 性格：紧张（HP+速度）<br>• 技能：齿轮切开+齿轮扭矩+磁暴+械斗<br>• 个体值：生命/物防/魔防三防全堆<br>• 优势：成型快、不挑资质'},
+
+  // 技能石
+  {keys:['技能石','怎么获取','怎么解锁','技能石获取'], answer:'<strong>技能石5种获取途径</strong>：<br>① 图鉴课题（最划算）：抓精灵→编队→使用技能N次<br>② 炼金合成：魔法石+3属性灵石（稀有+精元结晶）<br>③ 商店兑换：PVP/安妮/万事通商店<br>④ 副本掉落：30级以上精英怪<br>⑤ 活动/任务奖励'},
+  {keys:['折射','折射怎么获取'], answer:'<strong>折射技能石</strong>（核心T0）：<br>• 来源：伊芙(Eve)/独角兽<br>• 课题：编队+使用折射 <strong>8次</strong><br>• 用途：魔攻型C必备，反射敌方法术<br>• 迪莫/独角兽必带'},
+  {keys:['强化接力','接力'], answer:'<strong>强化接力技能石</strong>（核心）：<br>• 来源：翠顶夫人/乖乖鹄<br>• 使用次数：<strong>6次</strong><br>• 用途：辅助核心，下场传递增益<br>• PVP/PVE双修必备'},
+  {keys:['鸣沙陷阱'], answer:'<strong>鸣沙陷阱技能石</strong>（核心）：<br>• 来源：罗隐/砂猪<br>• 使用次数：<strong>8次</strong><br>• 用途：PVP第一控制（减速+石化）<br>• 罗隐核心技能，大龙争夺神器'},
+
+  // 配方
+  {keys:['液化药剂','花朵','火灵石'], answer:'<strong>液化药剂配方</strong>（最高性价比）：<br>催化剂 + 花朵 + 火灵石 = <strong style="color:gold">×7（全游戏最高产出）</strong>'},
+  {keys:['高级球','高级咕噜球'], answer:'<strong>高级咕噜球配方</strong>（异色必备）：<br>催化剂 + 水滴 + 木灵石/木块（每次×1）<br>或：催化剂 + 花朵/火灵石/光灵石 + 木灵石'},
+  {keys:['中级球','中级咕噜球'], answer:'<strong>中级咕噜球配方</strong>（唯一）：<br>催化剂 + 木块 + 水灵石 = <strong>×2</strong>'},
+  {keys:['小成长果实','成长果实'], answer:'<strong>小成长果实配方</strong>（唯一）：<br>催化剂 + 水滴 + 火灵石 = <strong>×2</strong><br>精灵升级用，材料稀缺优先合成'},
+  {keys:['属性球','九颗','元素球'], answer:'<strong>属性球合成公式</strong>：<br>普通咕噜球 ×1 + 对应植物材料 ×1 = 该属性球 ×1<br>火→火舌草，水→蓝露花，草→翠叶苗，电→雷鸣草，冰→雪绒花...<br>详见"合成配方"Tab。'},
+
+  // 阵容
+  {keys:['阵容','队伍','怎么搭配'], answer:'<strong>3套主流阵容</strong>：<br>① <strong>PVE通用强化接力</strong>：翠顶夫人+奇丽花+多核输出<br>② <strong>PVP控制核爆</strong>：罗隐+迪莫+春兔<br>③ <strong>PVE开荒三神柱</strong>：迪莫+独角兽+罗隐<br>详见"阵容&技能"Tab。'},
+
+  // 大量出没
+  {keys:['大量出没','活动时间','日历'], answer:'<strong>S1大量出没时间表</strong>：<br>4.3-4.5：红丝绒、红绒十字<br>4.10-4.12：大耳帽兜、雪影娃娃<br>4.17-4.19：机械方方、立方人<br>4.24-4.26：恶魔狼<br>5.1-5.3：拉特、酷拉<br>5.8-5.10：奇丽花<br>5.15-5.17：格兰球'},
+
+  // 毒攻略
+  {keys:['毒攻略','假攻略','骗','误区'], answer:'<strong>⚠️ 6大毒攻略（务必避开）</strong>：<br>① "双污染/三污染必出异色"——是BUG<br>② "用X个球必出异色"——只有80次破盾保底<br>③ "卡BUG刷异色"——封号风险<br>④ "免费送异色码"——盗号诈骗<br>⑤ "充值VIP保送异色"——官方无该渠道<br>⑥ "特定时间方位概率高"——除大量出没外都是假的'},
+
+  // 帮助
+  {keys:['帮助','help','你能做什么','怎么用'], answer:'<strong>🤖 NONO 能回答的话题</strong>：<br>• <em>异色：</em>"怎么刷异色"、"3×3怎么用"、"双标真的吗"<br>• <em>精灵：</em>"迪莫怎么培养"、"罗隐技能"、"春兔性格"<br>• <em>技能石：</em>"折射怎么获取"、"鸣沙陷阱使用次数"<br>• <em>配方：</em>"高级球配方"、"液化药剂"<br>• <em>阵容：</em>"PVP怎么配队"、"PVE阵容"<br>试试输入关键词吧！'}
+];
+
+function aiAnswer(question) {
+  const q = question.trim().toLowerCase();
+  if (!q) return '请输入你的问题哦~';
+
+  // 匹配评分：包含关键词数量越多分数越高
+  let best = null;
+  let bestScore = 0;
+  AI_KNOWLEDGE.forEach(k => {
+    let score = 0;
+    k.keys.forEach(key => {
+      if (q.includes(key.toLowerCase())) score += key.length;
+    });
+    if (score > bestScore) { bestScore = score; best = k; }
+  });
+
+  if (best) return best.answer;
+
+  // 没匹配到 → 返回常见话题提示
+  return '🤔 抱歉，我没有完全理解这个问题。<br>可以试试这些方向的问题：<br>' +
+    '• <em>怎么刷异色？</em><br>' +
+    '• <em>迪莫的技能搭配</em><br>' +
+    '• <em>折射技能石获取</em><br>' +
+    '• <em>液化药剂配方</em><br>' +
+    '• <em>PVP最强阵容</em><br>' +
+    '或输入 <code>帮助</code> 查看更多示例。';
+}
+
+function aiSendMessage() {
+  const input = document.getElementById('ai-input');
+  const chat = document.getElementById('ai-chat');
+  const msg = input.value.trim();
+  if (!msg || !chat) return;
+
+  // 用户消息
+  chat.innerHTML += `<div class="ai-msg ai-user" style="text-align:right;margin:14px 0"><span style="background:var(--accent);color:#fff;padding:8px 14px;border-radius:12px 12px 2px 12px;display:inline-block;max-width:80%;font-size:0.86rem">${msg}</span></div>`;
+
+  // AI回复
+  const reply = aiAnswer(msg);
+  chat.innerHTML += `<div class="ai-msg ai-bot" style="margin:14px 0"><strong style="color:var(--accent)">🤖 NONO：</strong>${reply}</div>`;
+
+  input.value = '';
+  chat.scrollTop = chat.scrollHeight;
+}
+
+document.getElementById('ai-send').addEventListener('click', aiSendMessage);
+document.getElementById('ai-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') aiSendMessage();
+});
 </script>
 
 </body>
